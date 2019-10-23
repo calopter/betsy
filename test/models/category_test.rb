@@ -1,7 +1,9 @@
 require "test_helper"
 
 describe Category do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe 'relations' do
+    it 'has_many products' do
+      expect(Category.new).must_respond_to :products
+    end
+  end
 end
