@@ -1,7 +1,21 @@
 require "test_helper"
 
 describe User do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe 'relations' do
+    before do
+      @user = User.new
+    end
+    
+    it 'can have products' do
+      @user.must_respond_to :products
+    end
+
+    it 'can have orders' do
+      @user.must_respond_to :orders
+    end
+
+    it 'can have reviews' do
+      @user.must_respond_to :reviews
+    end
+  end
 end
