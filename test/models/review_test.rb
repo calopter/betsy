@@ -1,7 +1,13 @@
 require "test_helper"
 
 describe Review do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  describe 'relations' do
+    it 'has a product' do
+      expect(Review.new).must_respond_to :product
+    end
+
+    it 'has a user' do
+      expect(Review.new).must_respond_to :user
+    end
+  end
 end
