@@ -118,6 +118,35 @@ end
 puts "Added #{Review.count} review records"
 puts "#{review_failures.length} reviews failed to save "
 
+# ORDERS 
+ORDERS_FILE = Rails.root.join('db', 'seed_data','orders.csv')
+puts "Loading raw orders data from #{ORDERS_FILE}"
+
+order_failures = []
+
+CSV.foreach(ORDERS_FILE, :headers => true) do |row|
+  order = Order.new
+  order.id = row['order_id']
+  order_casi_dt = row['date_time_order_purchased']
+  order.date_time_order_purchased = DateTime.parse(order_casi_dt)
+  order.status = row['status']
+  order.user_id = row['user_id'].to_i
+  # binding.pry
+  successful = order.save
+  
+  if !successful
+    order_failures << order
+    puts "Failed to save order: #{order.inspect}"
+  else
+    puts "Created order #{order.inspect}"
+  end
+end
+
+puts "Added #{Order.count} order records"
+puts "#{order_failures.length} order failed to save "
+puts "#{order_failures}"
+
+
 
 # # CATEGORIES_PRODUCTS
 # CATEGORIES_PRODUCTS_FILE = Rails.root.join('db', 'seed_data','categories_products.csv')
@@ -146,58 +175,31 @@ puts "#{review_failures.length} reviews failed to save "
 #Something is wrong with this model, which is why it's not recognizing this seed. :/
 
 
-# #CHECK ME!!
-# # # ORDER_ITEMS
-# ORDER_ITEMS_FILE = Rails.root.join('db', 'seed_data','order_items.csv')
-# puts "Loading raw order_items data from #{ORDER_ITEMS_FILE}"
-
-# order_item_failures = []
-
-# CSV.foreach(ORDER_ITEMS_FILE, :headers => true) do |row|
-#   order_item = Order_Item.new
-#   order_item.quantity = row['quantity']
-#   order_item.shipping_status = row['shipping_status']
-#   order_item.product_id = row['product_id']
-#   order_item.order_id = row['order_id']
-#   successful = order_item.save
-
-#   if !successful
-#     order_item_failures << order_item
-#     puts "Failed to save order_item: #{order_item.inspect}"
-#   else
-#     puts "Created order_item: #{order_item.inspect}"
-#   end
-# end
-
-# puts "Added #{Order_Item.count} order_item records"
-# puts "#{order_item_failures.length} order_item failed to save "
-
-
 #CHECK ME!!
-# ORDERS 
-ORDERS_FILE = Rails.root.join('db', 'seed_data','orders.csv')
-puts "Loading raw orders data from #{ORDERS_FILE}"
+# # ORDER_ITEMS
+ORDER_ITEMS_FILE = Rails.root.join('db', 'seed_data', 'order_items.csv')
+puts "Loading raw order_items data from #{ORDER_ITEMS_FILE}"
 
-order_failures = []
+order_item_failures = []
 
-CSV.foreach(ORDERS_FILE, :headers => true) do |row|
-  order = Order.new
-  order.id = row['order_id']
-  order_casi_dt = row['date_time_order_purchased']
-  order.date_time_order_purchased = DateTime.parse(order_casi_dt)
-  order.status = row['status']
-  order.user_id = row['user_id'].to_i
-  # binding.pry
-  successful = order.save
+CSV.foreach(ORDER_ITEMS_FILE, :headers => true) do |row|
+  order_item = Order_Item.new
+  order_item.quantity = row['quantity'].to_i
+  order_item.shipping_status = row['shipping_status']
+  order_item.product_id = row['product_id']
+  order_item.order_id = row['order_id']
+  successful = order_item.save
   
   if !successful
-    order_failures << order
-    puts "Failed to save order: #{order.inspect}"
+    order_item_failures << order_item
+    puts "Failed to save order_item: #{order_item.inspect}"
   else
-    puts "Created order #{order.inspect}"
+    puts "Created order_item: #{order_item.inspect}"
   end
 end
 
-puts "Added #{Order.count} order records"
-puts "#{order_failures.length} order failed to save "
-puts "#{order_failures}"
+puts "Added #{Order_Item.count} order_item records"
+puts "#{order_item_failures.length} order_item failed to save "
+
+
+
