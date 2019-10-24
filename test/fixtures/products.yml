@@ -11,7 +11,7 @@ p_1:
 p_2:
   name: Aladdin Golden Scarab Beetle Mirrors
   description: The Golden Scarab Beetle has a few tricks up its sleeve - like revealing the Cave of Wonders and your reflection!
-  price: 50000
+  price: 500
   photo_url: https://hottopic.scene7.com/is/image/HotTopic/11708689_hi?$pdp_hero_zoom$
   user_id: 2
   retired: Active
@@ -20,7 +20,7 @@ p_2:
 p_3:
   name: Magic Carpet
   description: A replica of the flying carpet.
-  price: 10000
+  price: 100
   photo_url: https://www.therpf.com/forums/attachments/tgqefqi-jpg.1027451/
   user_id: 2
   retired: Active
@@ -29,7 +29,7 @@ p_3:
 p_4:
   name: Abu
   description: 'HE''S SO CUTE!!!! '
-  price: 5000000000
+  price: 5000
   photo_url: https://primatestore.com/forsale/73_brazillian_2.jpg
   user_id: 2
   retired: Retired
@@ -38,7 +38,7 @@ p_4:
 p_5:
   name: Lago
   description: 'I can''t take it anymore if I gotta choke down on one of those moldy disgusting crackers'
-  price: 30000000
+  price: 3000
   photo_url: https://images.prod.meredith.com/product/cf5dd7e7a9e880c84adf078a109c172d/1556063274673/l/disney-aladdin-mini-plush-iago
   user_id: 3
   retired: Active
@@ -47,7 +47,7 @@ p_5:
 p_6:
   name: 'Jafar''s snake staff'
   description: Look into my eyes
-  price: 4000000
+  price: 4000
   photo_url: https://vignette.wikia.nocookie.net/evil/images/5/5d/Jafar%27s_Snake_Staff.jpg/revision/latest?cb=20190224000021
   user_id: 3
   retired: Retired

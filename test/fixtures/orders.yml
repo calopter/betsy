@@ -1,50 +1,50 @@
 
 o_1:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: pending
   user_id: 1
 
 o_2:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: paid
   user_id: 2
 
 o_3:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: complete
   user_id: 4
 
 o_4:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: canceled
   user_id: 3
 
 o_5:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: pending
   user_id: 1
 
 o_6:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: paid
   user_id: 3
 
 o_7:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: complete
   user_id: 2
 
 o_8:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: canceled
   user_id: 5
 
 o_9:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: paid 
   user_id: 3
 
 o_10:
-  Date_time_order_purchased: 2019-10-23 1:00:00 UTC
+  date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: pending
   user_id: 5
