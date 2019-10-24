@@ -12,10 +12,13 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.DS_Store
+db/.DS_Store
 
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+db/seed_data/
 
 /node_modules
 /yarn-error.log
