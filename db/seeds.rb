@@ -183,11 +183,12 @@ puts "Loading raw order_items data from #{ORDER_ITEMS_FILE}"
 order_item_failures = []
 
 CSV.foreach(ORDER_ITEMS_FILE, :headers => true) do |row|
-  order_item = Order_Item.new
+  order_item = OrderItem.new
   order_item.quantity = row['quantity'].to_i
   order_item.shipping_status = row['shipping_status']
   order_item.product_id = row['product_id']
   order_item.order_id = row['order_id']
+  
   successful = order_item.save
   
   if !successful
@@ -198,7 +199,7 @@ CSV.foreach(ORDER_ITEMS_FILE, :headers => true) do |row|
   end
 end
 
-puts "Added #{Order_Item.count} order_item records"
+puts "Added #{OrderItem.count} order_item records"
 puts "#{order_item_failures.length} order_item failed to save "
 
 
