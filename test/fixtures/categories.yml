@@ -1,0 +1,12 @@
+---
+uc_1:
+  label: houseware
+
+uc_2:
+  label: clothing
+
+uc_3:
+  label: toys
+  
+uc_4:
+  label: glitter
