@@ -18,4 +18,41 @@ describe Product do
       @product.must_respond_to :reviews
     end
   end
+
+
+  describe 'validation' do
+    
+    # Product must belong to a User
+    # product Name must be present
+    # product Name must be unique
+    # product Price must be present
+    # product Price must be greater than 0
+    it "requires a product name" do
+      
+      
+    end
+
+    it "requires a product name" do
+      
+      
+    end
+
+
+    it 'invalid without username' do
+     
+    end
+  
+    it 'invalid without email' do
+      
+
+    end
+    
+    it "requires a unique username" do
+      skip
+      
+    end
+  end
+
+
+
 end
