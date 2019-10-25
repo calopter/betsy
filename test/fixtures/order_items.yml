@@ -1,8 +1,8 @@
 o_i_1:
   quantity: 60
   shipping_status: shipped 
-  product_id: p_1
-  product_id: o_2
+  product: p_1
+  order: o_2
 
 o_i_2:
   quantity: 70
