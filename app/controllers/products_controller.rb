@@ -57,14 +57,25 @@ class ProductsController < ApplicationController
 
   #a merchant can destroy THEIR OWN product
   def destroy
-    selected_prod = Product.find_by(id: params[:id])
-    
-    if selected_prod.nil?
-      head :not_found
-      return
-    else
-      selected_prod.destroy
-      redirect_to products_path
+    if session[:user_id]
+      selected_prod = Product.find_by(id: params[:id])
+      
+      if selected_prod.nil?
+        head :not_found
+        return
+      elsif 
+        selected_prod.user_id != session[:user_id]
+        flash[:message] = "You do not have permission to delete this product."
+        redirect_to product_path(selected_prod.id)
+        return 
+      else
+        selected_prod.destroy
+        redirect_to products_path
+        return
+      end 
+    else 
+      flash[:message] = "You must be a merchant to do this"
+      redirect_to product_path(selected_prod.id)
     end 
   end 
 
@@ -93,7 +104,7 @@ class ProductsController < ApplicationController
   end
 
   def review_params
-    return params.require(:review).permit(:rating, :review, :product_id, :user_id)
+    return params.require(:review).permit(:rating, :user_review, :product_id, :user_id)
   end
 
 end
