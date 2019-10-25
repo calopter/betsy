@@ -1,119 +1,119 @@
 o_i_1:
   quantity: 60
   shipping_status: shipped 
-  product_id: p_1
-  product_id: o_2
+  product: p_1
+  order: _2
 
 o_i_2:
   quantity: 70
   shipping_status: pending
-  product_id: p_2
-  product_id: o_3
+  product: p_2
+  order: _3
 
 o_i_3:
   quantity: 90
   shipping_status: pending
-  product_id: p_3
-  product_id: o_1
+  product: p_3
+  order: _1
 
 o_i_4:
   quantity: 3
   shipping_status: shipped 
-  product_id: p_4
-  product_id: o_4
+  product: p_4
+  order: _4
 
 o_i_5:
   quantity: 4
   shipping_status: shipped 
-  product_id: p_5
-  product_id: o_5
+  product: p_5
+  order: _5
 
 o_i_6:
   quantity: 67
   shipping_status: pending
-  product_id: p_6
-  product_id: o_6
+  product: p_6
+  order: _6
 
 o_i_7:
   quantity: 5
   shipping_status: pending
-  product_id: p_1
-  product_id: o_7
+  product: p_1
+  order: _7
 
 o_i_8:
   quantity: 4
   shipping_status: pending
-  product_id: p_2
-  product_id: o_8
+  product: p_2
+  order: _8
 
 o_i_9:
   quantity: 5
   shipping_status: shipped 
-  product_id: p_3
-  product_id: o_9
+  product: p_3
+  order: _9
 
 o_i_10:
   quantity: 1
   shipping_status: shipped 
-  product_id: p_4
-  product_id: o_10
+  product: p_4
+  order: _10
 
 o_i_11:
   quantity: 33
   shipping_status: pending
-  product_id: p_1
-  product_id: o_2
+  product: p_1
+  order: o_2
 
 o_i_12:
   quantity: 444
   shipping_status: shipped 
-  product_id: p_2
-  product_id: o_3
+  product: p_2
+  order: _3
 
 o_i_13:
   quantity: 6
   shipping_status: shipped 
-  product_id: p_3
-  product_id: o_1
+  product: p_3
+  order: _1
 
 o_i_14:
   quantity: 7
   shipping_status: pending
-  product_id: p_4
-  product_id: o_4
+  product: p_4
+  order: _4
 
 o_i_15:
   quantity: 98
   shipping_status: pending
-  product_id: p_5
-  product_id: o_5
+  product: p_5
+  order: _5
 
 o_i_16:
   quantity: 22
   shipping_status: pending
-  product_id: p_6
-  product_id: o_6
+  product: p_6
+  order: _6
 
 o_i_17:
   quantity: 12
   shipping_status: shipped 
-  product_id: p_1
-  product_id: o_7
+  product: p_1
+  order: _7
 
 o_i_18:
   quantity: 3
   shipping_status: shipped 
-  product_id: p_2
-  product_id: o_8
+  product: p_2
+  order: _8
 
 o_i_19:
   quantity: 5
   shipping_status: shipped 
-  product_id: p_3
-  product_id: o_9
+  product: p_3
+  order: _9
 
 o_i_20:
   quantity: 2
   shipping_status: pending
-  product_id: p_4
-  product_id: o_10
+  product: p_4
+  order: _10

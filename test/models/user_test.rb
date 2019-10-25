@@ -9,13 +9,14 @@ describe User do
     it 'can have products' do
       @user.must_respond_to :products
     end
-
+    
     it 'can have orders' do
       @user.must_respond_to :orders
     end
-
+    
     it 'can have reviews' do
       @user.must_respond_to :reviews
+      binding.pry
     end
   end
 end
