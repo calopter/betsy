@@ -33,3 +33,6 @@ tags
 
 #Env
 .env
+
+# Ignore ctags
+tags
