@@ -30,3 +30,6 @@ db/.DS_Store
 
 #Env
 .env
+
+# Ignore ctags
+tags
