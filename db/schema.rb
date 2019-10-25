@@ -31,8 +31,9 @@ ActiveRecord::Schema.define(version: 2019_10_24_212917) do
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.string "shipping_status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "description"
+    t.string "photo_url"
+    t.integer "price"
     t.bigint "product_id"
     t.bigint "order_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_10_24_212917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.datetime "date_time_order_purchased"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 2019_10_24_212917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "retired"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -73,7 +76,6 @@ ActiveRecord::Schema.define(version: 2019_10_24_212917) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
-    t.string "address"
     t.string "cc_name"
     t.string "cc_number"
     t.string "cc_expiration"
@@ -81,8 +83,15 @@ ActiveRecord::Schema.define(version: 2019_10_24_212917) do
     t.string "billing_zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.integer "uid"
     t.string "provider"
+=======
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "mailing_zip"
+>>>>>>> master
   end
 
   add_foreign_key "order_items", "orders"

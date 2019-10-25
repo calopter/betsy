@@ -12,6 +12,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.DS_Store
+db/.DS_Store
 
 # Ignore uploaded files in development
 /storage/*
@@ -26,4 +28,8 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+#Env
 .env
+
+# Ignore ctags
+tags

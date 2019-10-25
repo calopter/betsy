@@ -11,3 +11,57 @@ invalid_without_email:
 invalid_duplicate_username:
   username: john
   email: test2@test.com
+
+=============================================  
+
+u_1:
+  username: mr_tea
+  email: mrtea@gmail.com
+  street_address: 2432  Duck Creek Road
+  city: Platteville
+  state: CO
+  mailing_zip: 98112
+  cc_name: Tea Soak
+  cc_number: 358682578002068
+  cc_expiration: 2021-02-28 00-00-00 UTC
+  cvv: 345
+  billing_zip: 80651
+
+u_2:
+  username: mycroft
+  email: mycroft@gmail.com
+  street_address: 2648  Hedge Street
+  city: Lenexa
+  state: WA
+  mailing_zip: 96834
+  cc_name: Wheeled Kane
+  cc_number: 6011393976149255
+  cc_expiration: 2021-05-31 00-00-00 UTC
+  cvv: 666
+  billing_zip: 90892
+
+u_3:
+  username: hello_kitty
+  email: hellokitty@hotmail.com
+  street_address: 1694  Modoc Alley
+  city: Portland
+  state: MI
+  mailing_zip: 34227
+  cc_name: Hello Cat
+  cc_number: 5599370810560063
+  cc_expiration: 2021-07-31 00-00-00 UTC
+  cvv: 777
+  billing_zip: 08880
+
+u_4:
+  username: sally
+  email: sally@yahoo.com
+  street_address: 3252  Emma Street
+  city: Salem
+  state: TX
+  mailing_zip: 76112
+  cc_name: Gretchen del Valle
+  cc_number: 4199213496260607
+  cc_expiration: 2021-02-28 00-00-00 UTC
+  cvv: 999
+  billing_zip: 67834
