@@ -14,7 +14,7 @@ describe OrderItem do
   describe 'custom methods' do
     describe 'total' do
       it 'returns an integer total price in cents' do
-
+        expect(order_items(:o_i_1).total).must_equal 1200000
       end
     end
   end
