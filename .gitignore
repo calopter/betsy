@@ -31,3 +31,6 @@ db/seed_data/
 
 #Env
 .env
+
+# Ignore ctags
+tags
