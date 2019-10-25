@@ -48,7 +48,7 @@ describe Product do
     end
     
     it "requires a unique username" do
-      skip
+     
       
     end
   end
