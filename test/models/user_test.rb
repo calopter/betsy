@@ -38,5 +38,17 @@ describe User do
         expect(user.revenue).must_equal 0
       end
     end
+
+    describe 'revenues' do
+      it 'accurately returns revenues by status' do
+        expect(users(:u_1).revenues).must_equal({ "pending" => 315600 })
+        expect(users(:u_2).revenues).must_equal({ "paid" => 1860000, "complete" => 340000 })
+      end
+      
+      it 'returns {} if the merchant has no orders' do
+        user = User.create
+        expect(user.revenues).must_equal({})
+      end
+    end
   end
 end

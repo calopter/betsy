@@ -10,4 +10,10 @@ class User < ApplicationRecord
   def revenue
     orders.map(&:revenue).sum
   end
+
+  def revenues
+    orders.group_by(&:status).transform_values do |orders|
+      orders.map(&:revenue).sum
+    end
+  end
 end
