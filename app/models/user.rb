@@ -6,4 +6,8 @@ class User < ApplicationRecord
   def order_count
     orders.group_by(&:status).transform_values(&:count)
   end
+
+  def revenue
+    orders.map(&:revenue).sum
+  end
 end

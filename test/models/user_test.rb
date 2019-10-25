@@ -26,5 +26,17 @@ describe User do
         expect(users(:u_1).order_count).must_equal({ "pending" => 2 })
       end
     end
+
+    describe 'revenue' do
+      it 'accurately sums the merchants revenue from all orders' do
+        expect(users(:u_1).revenue).must_equal 315600
+        # 9600 + 306000
+      end
+
+      it 'returns 0 if the merchant has no orders' do
+        user = User.create
+        expect(user.revenue).must_equal 0
+      end
+    end
   end
 end
