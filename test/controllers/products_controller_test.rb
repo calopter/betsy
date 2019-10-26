@@ -17,12 +17,12 @@ describe ProductsController do
 
   describe "show" do 
     it "responds with success when showing a valid product" do
-      product = product(:p1)
+      product = products(:p_1)
       get product_path(product.id)
       must_respond_with :success
 
-      expect(product.name).must equal "ADULT RED FEZ HAT"
-      expect(product.price).must equal 20000
+      expect(product.name).must_equal "ADULT RED FEZ HAT"
+      expect(product.price).must_equal 20000
     end
     
     it "responds with 404 with an invalid product id" do
@@ -39,22 +39,23 @@ describe ProductsController do
 
     describe "create" do 
       it "can create a new product with valid information accurately, and redirect" do
-        product_hash = { product: { stock: 100, name: "Abu Jacket", description:"If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: 29 }}
+        product_hash = { product: { stock: 100, name: "Abu Jacket", description: "If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id }}
+
         
         expect {
-        post products_path, params: driver_hash
+        post products_path, params: product_hash
         }.must_differ 'Product.count', 1
       
         must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
       end
 
-      #DOUBLE CHECK THIS
+      #NEED VALIDATIONS
       it "does not save and renders on new page when there is an invalid product submission" do
-        product_hash = { product: { stock: 100, name: "Abu Jacket", description:"If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: 29 }}
+        product_hash = { product: { stock: 100, name: "Abu Jacket", description:"If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id  }}
         
         expect {
-        post products_path, params: driver_hash
-        }.must_differ 'Product.count', 1
+        post products_path, params: product_hash
+        }.must_differ 'Product.count', 0
       
         must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
       end

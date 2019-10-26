@@ -81,6 +81,15 @@ class ProductsController < ApplicationController
 
   #ANY USER can rate a product 
   def rate_product
+    # Assuming this is true:
+    #   - We get into this products#rate_product action by submitting a form
+    # With questions about:
+    #   - What does the form look like? Does it use form_with and a model? Does it use form_with and no model? Does it use a different view helper to create the form?
+    # The big question for this action is...
+    #   How do we create a Review on product with the right information from the form?
+    #      Do we use something like review_params?
+    #      What does review_params look like?
+    # raise
     @product = Product.find_by(id: params[:id])
 
     if session[:user_id]
@@ -93,17 +102,21 @@ class ProductsController < ApplicationController
     flash[:message] = "Thanks for your review!"
     redirect_to product_path(@product.id)
 
-    #what if there is an error in saving?
+    #what if there is an error in saving? 
 
   end 
 
   private
   
   def product_params
-    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :user_id)
+    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :user_id, :retired)
   end
 
   def review_params
+    # By virtue of using a form in Rails, we DEF will have a strong_params method like this (aka review_params method)
+    # The only reason why this would change is:
+    #   1. If review requires different fields
+    #   2. If your form view helper is a little different. Aka, it will look like this if you use form_with and a model, it will probably look different if you do something else
     return params.require(:review).permit(:rating, :user_review, :product_id, :user_id)
   end
 
