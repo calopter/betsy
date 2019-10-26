@@ -12,7 +12,7 @@ invalid_duplicate_username:
   username: john
   email: test2@test.com
 
-=============================================  
+# =============================================  
 
 u_1:
   username: mr_tea
