@@ -1,8 +1,7 @@
 <h2>User Summary: <%= link_to @user.username, user_path(@user) %></h2>
 <p>Joined site <%= render_date @user.created_at %></p>
-
-<section class="user-votes__container">
-  <h3 class="user-votes__header">product</h3>
+<section class="user__container">
+  <h3 class="user__header">product</h3>
   <table class="table">
     <thead>
       <tr>
@@ -14,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <%# <% @user.product.each do |product| %> 
+      <%# <% @user.product.each do |product| %>
         <tr>
           <td><%= link_to %></td>
           <td><%=  %></td>
@@ -26,6 +25,5 @@
     </tbody>
   </table>
 </section>
-
 <%= link_to "See all Product", users_path, class: "btn btn-secondary" %>
 <%= link_to "Back to users page", root_path, class: "btn btn-primary" %>

@@ -30,7 +30,7 @@
       </ul>
     </nav>
   </header>
-  <main >
+  <main class="container-fluid">
     <% if flash[:result_text] or flash[:messages] %>
       <section class="alert-container">
         <div class="alert alert-<%= flash[:status].to_s == 'failure' ? 'warning' : flash[:status] %>">
@@ -47,9 +47,7 @@
         </div>
       </section>
     <% end %>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </main>
 </body>
 </html>
