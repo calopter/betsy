@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
 
   #a merchange can update THEIR OWN product
   def update
-    @product = Work.find_by(id: params[:id])
+    @product = Product.find_by(id: params[:id])
     
     if @product.nil?
       head :not_found
@@ -102,7 +102,7 @@ class ProductsController < ApplicationController
     flash[:message] = "Thanks for your review!"
     redirect_to product_path(@product.id)
 
-    #what if there is an error in saving? 
+    #what if there is an error in saving? git st
 
   end 
 

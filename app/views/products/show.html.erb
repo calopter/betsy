@@ -1,1 +1,16 @@
 <h2>Show page</h2>
+
+<%= @product.name %>
+<%= image_tag @product.photo_url, alt: @product.photo_url %>
+<%= @product.description %>
+<%= @product.price %>
+
+<ul>
+  <li>
+    <% @product.reviews.each do |review| %>
+      <%= review.rating %>
+      <%= review.created_at %>
+      <%= review.user_review %>
+    <% end %>
+  </li>
+</ul>
