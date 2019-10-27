@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  post 'products/:id/add', to: 'order#add', as: 'add_to_cart'
+  post 'products/:product_id/add', to: 'orders#add', as: 'add_to_cart'
+  get 'cart/:order_id', to: 'orders#show', as: 'cart'
 end

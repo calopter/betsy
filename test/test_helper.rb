@@ -8,6 +8,10 @@ require 'minitest/reporters'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-  
-  # Add more helper methods to be used by all tests here...
+
+  def add_to_cart(product = products(:p_1), quantity = 1)
+    order_item_params = { order_item: { quantity: quantity } }
+    post add_to_cart_path(product), params: order_item_params
+    return product
+  end
 end
