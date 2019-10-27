@@ -1,4 +1,17 @@
+valid:
+  name: john
+  email: john@example.com
 
+invalid_without_username:
+  email: john2@example.com
+
+invalid_without_email:
+  username: amy
+
+invalid_duplicate_username:
+  username: john
+  email: test2@test.com
+# ==========================================
 p_1:
   name: ADULT RED FEZ HAT
   description: 'People will ask, “What''s that on your head?” and all you need to say is, “It''s a fez. I wear a fez now. Fezzes are cool.” It will make you appear as if you''re part of some exclusive men''s or women''s club that only the coolest of the cool can be part of, and only as long as they have one of these classy felt fezzes.'
