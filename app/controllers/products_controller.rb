@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+
+  # skip_before_action :require_login, only[:index, :show, :review]
   
   #show all the products available for sale to ALL users
   def index
@@ -47,11 +49,9 @@ class ProductsController < ApplicationController
     if @product.nil?
       head :not_found
       return
-    elsif @product.update(product_params)
-      redirect_to product_path(@product.id)
-      return
     else
-      head :not_found
+      @product.update(product_params)
+      redirect_to product_path(@product.id)
     end
   end 
 
@@ -80,7 +80,7 @@ class ProductsController < ApplicationController
   end 
 
   #ANY USER can rate a product 
-  def rate_product
+  def review
     # Assuming this is true:
     #   - We get into this products#rate_product action by submitting a form
     # With questions about:
@@ -89,21 +89,22 @@ class ProductsController < ApplicationController
     #   How do we create a Review on product with the right information from the form?
     #      Do we use something like review_params?
     #      What does review_params look like?
-    # raise
     @product = Product.find_by(id: params[:id])
 
-    if session[:user_id]
-      #not sure if this would grab user_id from session
-      @product.reviews.create(review_params)
+    if session[:user_id] == @product.user_id 
+      flash[:message] = "You can't review your own product"
+      redirect_to product_path(@product.id)
     else 
-      #need to set user_id to nil in params
-      @product.reviews.create(review_params)
+      if session[:user_id]
+        #not sure if this would grab user_id from session
+        @product.reviews.create(review_params)
+      else 
+        #need to set user_id to nil in params
+        @product.reviews.create(review_params)
+      end 
+      flash[:message] = "Thanks for your review!"
+      redirect_to product_path(@product.id)
     end 
-    flash[:message] = "Thanks for your review!"
-    redirect_to product_path(@product.id)
-
-    #what if there is an error in saving? git st
-
   end 
 
   private

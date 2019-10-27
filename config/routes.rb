@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :products
   resources :products do 
     member do 
-      get 'review'
       post 'review'
     end 
   end
