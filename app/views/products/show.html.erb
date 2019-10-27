@@ -5,6 +5,9 @@
 <%= @product.description %>
 <%= @product.price %>
 
+<%# <%= link_to "Add review", review_product_path(@product.id)%>
+
+<h4>Reviews</h4>
 <ul>
   <li>
     <% @product.reviews.each do |review| %>
