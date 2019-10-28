@@ -61,7 +61,7 @@ describe Order do
     end
     
   end
-  
+
   describe "validations when paying" do
     before do
       @order = Order.last

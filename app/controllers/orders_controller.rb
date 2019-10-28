@@ -11,6 +11,11 @@ class OrdersController < ApplicationController
       return
     end
     
+    if @current_user.valid?(:completing_purchase).errors?
+      redirect_to root_path
+      return
+    end
+    
     @order_price = Order.price(@current_order.id)
     
     purchase_confirmation
@@ -53,7 +58,7 @@ class OrdersController < ApplicationController
   private
   
   def find_order
-    @current_order = Order.find_by(id: params[:id])
+    @current_order = Order.find_by(id: session[:order_id])
   end
   
   def find_user

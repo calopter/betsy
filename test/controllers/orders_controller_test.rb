@@ -31,7 +31,25 @@ describe OrdersController do
     end
     
     
-    it "completing a purchase is not allowed if user's information is missing" do
+    it "if a purchase is not being made, validations needed for purchase such as email, cc information etc. are not being run" do
+      user = User.first
+      user.email = ""
+      order = Order.first
+      order.user_id = user.id
+      order.status = "pending"
+      assert(user.valid?)
+    end
+    
+    it "if a purchase is being made, validations needed are being run" do
+      user = User.first
+      user.email = ""
+      order = Order.first
+      order.user_id = user.id
+      
+      post orders_purchase_confirmation_path(order.id)
+      
+      must_redirect_to root_path
+      binding.pry
     end
     
   end

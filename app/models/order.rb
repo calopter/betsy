@@ -6,9 +6,6 @@ class Order < ApplicationRecord
   
   validates :status, inclusion: { in: ["pending", "paid", "complete", "cancelled"] }
   
-  
-  
-  
   validate :sufficient_order_items
   def sufficient_order_items
     id = self.id
