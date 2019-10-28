@@ -14,6 +14,7 @@ class ProductsController < ApplicationController
     if @product.nil?
       head :not_found 
     end
+    @order_item = OrderItem.new(order_id: get_cart[:order_id])
   end 
 
   #bring up new form for merchant to add a product
