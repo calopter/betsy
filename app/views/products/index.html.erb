@@ -1,0 +1,15 @@
+<h2> PRODUCTS </h2>
+
+<% @products.each do |product| %>
+  <% if product.retired == "Active" %>
+    <ul>
+      <li>
+      <%= image_tag product.photo_url, alt: product.photo_url %>
+      <%= product.name %>
+      <%= product.name %>
+      <%= product.price %>
+      <%= link_to "See details", product_path(product.id), method: :get %>
+      </li>
+    </ul>
+  <% end %>
+<% end %>

@@ -18,4 +18,13 @@ class User < ApplicationRecord
       orders.map(&:revenue).sum
     end
   end
+
+  def self.build_from_github(auth_hash)
+    user = User.new
+    user.uid = auth_hash[:uid]
+    user.provider = "github"
+    user.username = auth_hash["info"]["nickname"]
+    user.email = auth_hash["info"]["email"]
+    return user
+  end
 end

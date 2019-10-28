@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 2019_10_25_013441) do
     t.string "city"
     t.string "state"
     t.string "mailing_zip"
+    t.integer "uid"
+    t.string "provider"
   end
   
   add_foreign_key "order_items", "orders"

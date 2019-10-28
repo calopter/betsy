@@ -1,4 +1,3 @@
----
 c_1:
   label: houseware
 
@@ -7,6 +6,6 @@ c_2:
 
 c_3:
   label: toys
-  
+
 c_4:
   label: glitter
