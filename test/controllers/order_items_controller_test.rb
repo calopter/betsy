@@ -7,7 +7,6 @@ describe OrderItemsController do
 
   describe 'destroy' do
     it 'removes existing order_item from the cart and db, then redirects' do
-      skip
       
       add_to_cart
       expect(find_cart.order_items.count).must_equal 1
@@ -18,21 +17,17 @@ describe OrderItemsController do
     end
 
     it 'responds with bad request for non-existing order item' do
-      skip
-      
       add_to_cart
 
       expect{ delete remove_from_cart_path(order_items(:o_i_1)) }.wont_change "@cart.order_items.count"
       
       delete remove_from_cart_path(order_items(:o_i_1))
-      must_respond_with :badrequest
+      must_respond_with :not_found
     end
     
     it 'responds with bad request for non-existing cart' do
-      skip
-      
       delete remove_from_cart_path(order_items(:o_i_1))
-      must_respond_with :badrequest
+      must_respond_with :not_found
     end
   end
 end
