@@ -49,4 +49,8 @@ class Order < ApplicationRecord
   
   
   
+
+  def revenue
+    order_items.map(&:total).sum
+  end
 end
