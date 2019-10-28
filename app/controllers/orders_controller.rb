@@ -1,14 +1,16 @@
 class OrdersController < ApplicationController
+  
+  before_action :find_user, only:[:complete_purchase, :purchase_confirmation]
+  before_action :find_cart, only:[:complete_purchase, :purchase_confirmation]
+  
   def complete_purchase
-    find_user
-    find_cart
     
     if @cart.order_items.count == 0
       redirect_to root_path
       return
     end
     
-    if @current_user.valid?(:completing_purchase).errors?
+    if !@cart.user.valid?
       redirect_to root_path
       return
     end
@@ -19,14 +21,12 @@ class OrdersController < ApplicationController
   end
   
   def purchase_confirmation
-    find_cart
-    find_user
     
     @cart.status = "paid"
-    @cart.save
     
     @cart.date_time_order_purchased = DateTime.now
     
+    @cart.date_time_order_purchased
     @order_items = @cart.order_items
     
     @order_items.each do |order_item|
@@ -35,11 +35,8 @@ class OrdersController < ApplicationController
       product.stock -= adjusting_quantity
       product.save
     end
-    
     @cart.save
   end
-  
-  
   
   def show
     @order = Order.find_by(id: get_cart[:order_id])
