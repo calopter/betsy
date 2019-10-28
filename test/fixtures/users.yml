@@ -1,3 +1,20 @@
+# valid:
+#   username: john
+#   email: john@example.com
+
+# invalid_without_username:
+#   email: john2@example.com
+
+# invalid_without_email:
+#   username: amy
+
+# invalid_duplicate_username:
+#   username: john
+#   email: test2@test.com
+
+# need to changes for my test work
+
+# =============================================  
 
 u_1:
   username: mr_tea
