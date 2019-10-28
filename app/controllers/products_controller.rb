@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-
+  # require login for all the actions except the following...
   # skip_before_action :require_login, only[:index, :show, :review]
   
   #show all the products available for sale to ALL users
@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
     end
   end 
 
-  #a merchange can update THEIR OWN product
+  #a merchant can update THEIR OWN product
   def update
     @product = Product.find_by(id: params[:id])
     
