@@ -8,6 +8,13 @@
   <%= link_to "Delete product", product_path(@product.id), method: :delete %>
 <% end  %>
 
+<h4>Add to cart</h4>
+<%= form_with model: @order_item, url: add_to_cart_path(@product.id) do |f| %>  
+  <%= f.label :quantity %>
+  <%= f.text_field :quantity %>
+  <%# f.hidden_field :product_id, :value => @product.id %>
+  <%= f.submit "Add to Cart" %>
+<% end %>
 
 <h4>Add a review</h4>
 <%= form_with model: @review do |f| %>
