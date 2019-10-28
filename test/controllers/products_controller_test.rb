@@ -7,12 +7,14 @@ describe ProductsController do
       get products_path
       must_respond_with :success
     end
-    
-    # it "even if there are no products saved but index succesfully shows" do
-    #   Product.destroy_all
-    #   get products_path
-    #   must_respond_with :success
-    # end
+
+    it "even if there are no products saved but index succesfully shows" do
+      Review.destroy_all
+      OrderItem.destroy_all
+      Product.destroy_all
+      get products_path
+      must_respond_with :success
+    end
   end 
   
   describe "show" do 
@@ -95,23 +97,27 @@ describe ProductsController do
     
     # STILL NOT WORKING -MOMO
     describe "destroy" do 
-      # it "removes product from db, redirects, and product count decreases" do 
-      #   expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
-      #   must_redirect_to products_path
-      # end 
-      
-      # it "doesn't remove product if it's already removed or db is empty" do 
-      #   Product.destroy_all
-      #   expect { delete product_path(products(:p_3).id) }.must_differ "Product.count", 0
-      #   must_respond_with :not_found
-      # end 
+      it "removes product from db, redirects, and product count decreases" do
+        skip
+        
+        expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
+        must_redirect_to products_path
+      end 
+
+      it "doesn't remove product if it's already removed or db is empty" do
+        skip
+        
+        Product.destroy_all
+        expect { delete product_path(products(:p_3).id) }.must_differ "Product.count", 0
+        must_respond_with :not_found
+      end 
     end 
     
     describe "rate_product" do 
       # it "adds review to db, review count increases, and redirects" do
       # end 
       
-      # #validation test
+      # #validation testπ
       # it "does not save review if does not fill in correct information" do 
       # end 
     end 

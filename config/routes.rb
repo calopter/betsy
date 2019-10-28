@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   get "/orders/:id/complete_purchase", to: "orders#complete_purchase", as: "complete_purchase"
   post "/orders/:id/complete_purchase", to: "orders#purchase_confirmation", as: "orders_purchase_confirmation"
   
+  post 'products/:product_id/add', to: 'orders#add', as: 'add_to_cart'
+  
+  get 'cart', to: 'orders#show', as: 'cart'
+
+  delete 'cart/:id', to: 'order_items#destroy', as: 'remove_from_cart'
+  
   get "/auth/github", as: "github_login"
   
   get "/auth/:provider/callback", to: "users#create"
