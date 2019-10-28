@@ -71,6 +71,7 @@ describe ProductsController do
       end
     end 
 
+    #STILL WORKING ON THIS -MOMO
     describe "update" do 
       it "saves updated information to existing product, redirects, and doesn't change product count" do 
         updated_product_data = { product: { name: "Golden Scarab Beetle Mirrors", price: 700 } }
@@ -92,6 +93,7 @@ describe ProductsController do
       end 
     end 
 
+    # STILL NOT WORKING -MOMO
     describe "destroy" do 
       it "removes product from db, redirects, and product count decreases" do 
         expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
@@ -106,12 +108,12 @@ describe ProductsController do
     end 
 
     describe "rate_product" do 
-      it "adds review to db, review count increases, and redirects" do
-      end 
+      # it "adds review to db, review count increases, and redirects" do
+      # end 
 
-      #validation test
-      it "does not save review if does not fill in correct information" do 
-      end 
+      # #validation test
+      # it "does not save review if does not fill in correct information" do 
+      # end 
     end 
   end 
 

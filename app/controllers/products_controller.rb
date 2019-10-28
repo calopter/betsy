@@ -79,6 +79,8 @@ class ProductsController < ApplicationController
     end 
   end 
 
+  #STILL WORKING ON THIS -MOMO
+
   #ANY USER can rate a product 
   def review
     # Assuming this is true:
@@ -113,6 +115,7 @@ class ProductsController < ApplicationController
     return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :user_id, :retired)
   end
 
+  #STILL WORKING ON THIS -MOMO
   def review_params
     # By virtue of using a form in Rails, we DEF will have a strong_params method like this (aka review_params method)
     # The only reason why this would change is:
