@@ -1,0 +1,27 @@
+<h2 class="congratulatory statement"> Congratulatory statement. This is your order confirmation screen.  </h2>
+
+<table>
+  <h2 id = "order-details"> Order Details </h2>
+  <theader>
+    <tr class = "table-headers">
+      <td>Quantity</td>
+      <td>Price</td>
+      <td>Item Subtotal</td>
+      <td>Item Description</td>
+    </tr>
+  </theader>
+  <tbody>
+    <% @order_items.each do |order_item| %>
+      <tr>
+        <td> <%= order_item.quantity %></td>
+        <td> <%= Product.find_by(id: order_item.product_id).price %></td>
+        <td> I am price, I will be here soonish</td>
+        <td><%= link_to Product.find_by(id: order_item.product_id).name, product_path(Product.find_by(id: order_item.product_id).id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3 class= "summary"> Total Price: $<%= @order_price%> </h3>
+<h3 class= "summary"> Order Placed: <%= @current_order.date_time_order_purchased %></h3>
+<h3 class= "summary"> Order Status: <%= @current_order.status %> </h3>
