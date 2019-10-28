@@ -24,10 +24,6 @@ class User < ApplicationRecord
     user.provider = "github"
     user.username = auth_hash["info"]["nickname"]
     user.email = auth_hash["info"]["email"]
-
-
-    # Note that the user has not been saved.
-    # We'll choose to do the saving outside of this method
     return user
   end
 end
