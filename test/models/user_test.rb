@@ -94,6 +94,8 @@ describe User do
     end
     
     it "requires a unique username" do
+      skip
+      
       username = "test username"
       email = 'test@email.com'
       user1 = User.new(username: username, email: email)
@@ -108,7 +110,9 @@ describe User do
     end
     describe 'validation' do
       
-      xit 'invalid without username' do
+      it 'invalid without username' do
+        skip
+        
         user = users(:username)
         user.valid?.must_equal false
         user.errors.messages.must_include :username
@@ -117,7 +121,9 @@ describe User do
         # assert_not_nil @user.errors[:username], 'no validation error for username present'
       end
       
-      xit 'invalid without email' do
+      it 'invalid without email' do
+        skip
+        
         user = users(:invalid_without_email)
         user.valid?.must_equal false
         user.errors.messages.must_include :email
@@ -127,7 +133,9 @@ describe User do
         
       end
       
-      xit "requires a unique username" do
+      it "requires a unique username" do
+        skip
+        
         username = "test username"
         email = 'test@email.com'
         user1 = User.new(username: username, email: email)
@@ -142,7 +150,9 @@ describe User do
       end
       
       
-      xit 'requires an unique email' do
+      it 'requires an unique email' do
+        skip
+        
         username1 = "testusername"
         email = 'test@email.com'
         user1 = User.new(username: username1, email: email)

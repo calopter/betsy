@@ -1,12 +1,9 @@
 class OrdersController < ApplicationController
-  
   def complete_purchase
-    find_order
     find_user
+    find_cart
     
-    @order_items = OrderItem.where(order_id: @current_order.id)
-    
-    if @order_items.count == 0
+    if @cart.order_items.count == 0
       redirect_to root_path
       return
     end
@@ -16,22 +13,21 @@ class OrdersController < ApplicationController
       return
     end
     
-    @order_price = Order.price(@current_order.id)
+    # @order_price = Order.price(@current_order.id)
     
     purchase_confirmation
-    
   end
   
   def purchase_confirmation
-    find_order
+    find_cart
     find_user
     
-    @current_order.status = "paid"
-    @current_order.save
+    @cart.status = "paid"
+    @cart.save
     
-    @current_order.date_time_order_purchased = DateTime.now
+    @cart.date_time_order_purchased = DateTime.now
     
-    @order_items = @current_order.order_items
+    @order_items = @cart.order_items
     
     @order_items.each do |order_item|
       product = order_item.product
@@ -40,8 +36,7 @@ class OrdersController < ApplicationController
       product.save
     end
     
-    @current_order.save
-    
+    @cart.save
   end
   
   
