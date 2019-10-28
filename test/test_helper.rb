@@ -14,4 +14,8 @@ class ActiveSupport::TestCase
     post add_to_cart_path(product), params: order_item_params
     return product
   end
+
+  def find_cart
+    @cart ||= Order.find_by(id: session[:order_id])
+  end
 end

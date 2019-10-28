@@ -1,0 +1,11 @@
+<main>
+  <h1>Cart</h1>
+  <% if @order.order_items.empty? %>
+    <h4>your cart is empty</h4>
+  <% end %>
+  <ul>
+    <% @order.order_items.each do |order_item| %>
+      <li><%= render 'order_items/show', order_item: order_item %></li>
+    <% end %>
+  </ul>
+</main>

@@ -1,6 +1,24 @@
 require "test_helper"
 
 describe OrdersController do
+  describe 'show' do
+    it 'responds with success when there is an existing cart' do
+      add_to_cart
+      get cart_path
+      must_respond_with :success
+    end
+
+    it 'responds with success when there is not an existing cart' do
+      get cart_path
+      must_respond_with :success    
+    end
+
+    it 'always leaves order_id in session' do
+      get cart_path
+      assert Order.find_by(id: session[:order_id])
+    end
+  end
+
   describe 'add' do
     it 'sets the order status to pending and the order_item shipping status to pending' do
       add_to_cart
@@ -46,7 +64,7 @@ describe OrdersController do
         expect(flash[:success]).must_equal "Added 1 #{ product.name } to cart"
         
         order = Order.find_by(id: session[:order_id])
-        must_redirect_to cart_path(order)
+        must_redirect_to cart_path
       end
     end
 

@@ -1,4 +1,9 @@
 class OrdersController < ApplicationController
+  def show
+    @order = Order.find_by(id: get_cart[:order_id])
+    session[:order_id] = @order.id
+  end
+  
   def add
     order = get_cart
     order_item = OrderItem.new(order_item_params.merge(order)
@@ -10,7 +15,7 @@ class OrdersController < ApplicationController
       flash[:error] = "unable to add to cart"
       flash[:messages] = order_item.errors.messages
     end
-    redirect_to cart_path(order)
+    redirect_to cart_path
   end
 
   private
