@@ -10,7 +10,9 @@ describe OrdersController do
     it "completing a purchase changes an order's status" do
       expected_order_status = "paid"
       @order.status = "pending"
-      complete_purchase_path(@order.id)
+      
+      post orders_purchase_confirmation_path(@order.id)
+      
       expect(@order.status).must_equal expected_order_status
       
     end
@@ -20,21 +22,18 @@ describe OrdersController do
       # @order = 
       @products = Product.where(id: OrderItem.find_by(order_id: @order.id).product_id)
       
-      @products.first.stock = 100
+      special = @products.first
+      special.stock = 100
       
-      post complete_purchase_path(@order.id)
+      post orders_purchase_confirmation_path(@order.id)
       
-      expect(Product.find_by(id: OrderItem.find_by(order_id: @order.id).product_id)).stock must_equal 4
-      
+      expect(special.stock).must_equal 4
     end
     
     
     it "completing a purchase is not allowed if user's information is missing" do
     end
     
-    
   end
-  
-  
   
 end

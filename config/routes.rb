@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/orders/:id/see_order", to: "orders#show", as: "show"
   
   get "/orders/:id/complete_purchase", to: "orders#complete_purchase", as: "complete_purchase"
+  post "/orders/:id/complete_purchase", to: "orders#purchase_confirmation", as: "orders_purchase_confirmation"
   
   
   resources :orders

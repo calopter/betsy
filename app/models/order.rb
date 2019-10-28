@@ -2,6 +2,23 @@ class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items
   
+  validates :status, presence: true
+  
+  validates :status, inclusion: { in: ["pending", "paid", "complete", "cancelled"] }
+  
+  
+  
+  
+  validate :sufficient_order_items
+  def sufficient_order_items
+    id = self.id
+    order_items = OrderItem.where(order_id: id)
+    order = self
+    if order.status == "paid" && order_items.count == 0
+      errors.add(:order_items, "Insufficient order items in the cart to complete purchase")
+    end
+  end
+  
   def self.formatter(integer)
     integer = integer.to_s
     integer.delete! "."
@@ -31,26 +48,10 @@ class Order < ApplicationRecord
   end
   
   
-
-  
-  
-  # validates :status, presence: true
-  # validates :status, inclusion: { in: ["pending", "paid", "complete", "cancelled"] }
-  
-  # def related_user_cc_expiration
-  #   @login_user = User.find_by(id: "blarg")
-  #   if @login_user != nil
-  #     if @login_user.cc_expiration == "1121"
-  #       errors.add(:cc_expiration, "The user cc expiration must exist")
-  #     end
-  #   end
-  # end
-  # validate :related_user_cc_expiration
-  
-  
-  
-
   def revenue
     order_items.map(&:total).sum
   end
 end
+
+
+
