@@ -24,7 +24,7 @@ describe OrdersController do
       
       special = @products.first
       special.stock = 100
-      
+     
       post orders_purchase_confirmation_path(@order.id)
       
       expect(special.stock).must_equal 4

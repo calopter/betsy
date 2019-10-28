@@ -31,10 +31,10 @@ class OrdersController < ApplicationController
     
     @current_order.date_time_order_purchased = DateTime.now
     
-    @order_items = OrderItem.where(order_id: @current_order.id)
+    @order_items = @current_order.order_items
     
     @order_items.each do |order_item|
-      product = Product.find_by(id: order_item.product_id)
+      product = order_item.product
       adjusting_quantity = order_item.quantity
       product.stock -= adjusting_quantity
       product.save
