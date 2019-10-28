@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
       return
     end
     
-    # @order_price = Order.price(@current_order.id)
+    @order_price = Order.price(@current_order.id)
     
     purchase_confirmation
   end
