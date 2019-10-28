@@ -65,8 +65,10 @@ describe User do
         user = User.create
         expect(user.revenues).must_equal({})
       end
+    end
+  end
+    
   describe 'validation' do
-  
     it 'invalid without username' do
       user = users(:username)
       user.valid?.must_equal false

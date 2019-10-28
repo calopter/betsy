@@ -19,16 +19,7 @@ class OrdersController < ApplicationController
   end
 
   private
-  def get_cart
-    id = session[:order_id]
-    
-    if id
-      return { order_id: id }
-    else
-      user = User.create
-      return { order_id: Order.create(user: user, status: "pending").id }
-    end
-  end
+
   
   def order_item_params
     params.require(:order_item).permit(:quantity).merge({ shipping_status: "pending" })
