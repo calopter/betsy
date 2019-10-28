@@ -13,16 +13,19 @@ describe Product do
     it 'has_many categories' do
       @product.must_respond_to :categories
     end
-
+  
     it 'has_many reviews' do
       @product.must_respond_to :reviews
     end
-  end
+    
+    it 'has_many reviews' do
+     @product.must_respond_to :reviews
+   end
+ end
 
 # still working on the test.
 
-  describe 'validation' do
-    
+ describe 'validation' do
     # Product must belong to a User
     # product Name must be present
     # product Name must be unique
@@ -53,7 +56,4 @@ describe Product do
       
     end
   end
-
-
-
 end
