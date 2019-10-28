@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   # require login for all the actions except the following...
-  # skip_before_action :require_login, only[:index, :show, :review]
+  before_action :require_login
+  skip_before_action :require_login, only: [:index, :show, :review], raise: false
   
   #show all the products available for sale to ALL users
   def index
@@ -23,7 +24,7 @@ class ProductsController < ApplicationController
 
   #a merchant can add a new product
   def create
-    @product = Product.new(product_params)
+    @product = Product.new(product_params.merge({user_id: @login_user.id}))
     
     if @product.save
       redirect_to product_path(@product.id)
@@ -57,7 +58,7 @@ class ProductsController < ApplicationController
 
   #a merchant can destroy THEIR OWN product
   def destroy
-    if session[:user_id]
+    # if session[:user_id]
       selected_prod = Product.find_by(id: params[:id])
       
       if selected_prod.nil?
@@ -73,10 +74,10 @@ class ProductsController < ApplicationController
         redirect_to products_path
         return
       end 
-    else 
-      flash[:message] = "You must be a merchant to do this"
-      redirect_to product_path(selected_prod.id)
-    end 
+    # else 
+    #   flash[:message] = "You must be a merchant to do this"
+    #   redirect_to product_path(selected_prod.id)
+    # end 
   end 
 
   #STILL WORKING ON THIS -MOMO
@@ -98,11 +99,9 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     else 
       if session[:user_id]
-        #not sure if this would grab user_id from session
-        @product.reviews.create(review_params)
+        @product.reviews.create(review_params.merge({user_id: @login_user.id}))
       else 
-        #need to set user_id to nil in params
-        @product.reviews.create(review_params)
+        @product.reviews.create(review_params.merge({user_id: nil}))
       end 
       flash[:message] = "Thanks for your review!"
       redirect_to product_path(@product.id)
@@ -112,7 +111,7 @@ class ProductsController < ApplicationController
   private
   
   def product_params
-    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :user_id, :retired)
+    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :retired)
   end
 
   #STILL WORKING ON THIS -MOMO
@@ -121,7 +120,13 @@ class ProductsController < ApplicationController
     # The only reason why this would change is:
     #   1. If review requires different fields
     #   2. If your form view helper is a little different. Aka, it will look like this if you use form_with and a model, it will probably look different if you do something else
-    return params.require(:review).permit(:rating, :user_review, :product_id, :user_id)
+    return params.require(:review).permit(:rating, :user_review, :product_id)
   end
 
+  def require_login
+    if find_user.nil?
+      flash[:error] = "You must be logged in to view this section"
+      redirect_to products_path
+    end 
+  end 
 end

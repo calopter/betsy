@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "products#index"
+  root "users#index"
   
   get "/auth/github", as: "github_login"
 

@@ -4,6 +4,9 @@
 <%= image_tag @product.photo_url, alt: @product.photo_url %>
 <%= @product.description %>
 <%= @product.price %>
+<% if @login_user %>
+  <%= link_to "Delete product", product_path(@product.id), method: :delete %>
+<% end  %>
 
 
 <h4>Add a review</h4>

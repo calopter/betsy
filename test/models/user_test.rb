@@ -5,6 +5,7 @@ describe User do
     @user = User.create(username: 'john', email: 'john@example.com')#users(:valid)
     # @user.save!
   end
+
   describe 'relations' do
     it 'can have products' do
       @user.must_respond_to :products
@@ -65,6 +66,9 @@ describe User do
         user = User.create
         expect(user.revenues).must_equal({})
       end
+    end 
+  end 
+
   describe 'validation' do
   
     it 'invalid without username' do
@@ -96,10 +100,9 @@ describe User do
 
       user2 = User.new(username: username, email: email)
       result = user2.save
-      result.must_equal false
-      user2.errors.messages.must_include :username
-    end
-   
+      expect(result).must_equal false
+      expect(user2.errors.messages).must_include :username
+    end 
     
     it 'requires an unique email' do
       username1 = "testusername"
@@ -111,8 +114,8 @@ describe User do
       username2 = "test2username"
       user2 = User.new(username: username2, email: email)
       result = user2.save
-      result.must_equal false
-      user2.errors.messages.must_include :email
+      expect(result).must_equal false
+      expect(user2.errors.messages).must_include :email
     end
   end
 end
