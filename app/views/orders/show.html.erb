@@ -28,6 +28,7 @@
           </td>
           <td>$<%= Order.formatter order_item.product.price %></td>
           <td>$<%= Order.formatter order_item.total %></td>
+          <td><%= link_to "remove", remove_from_cart_path(order_item.id), method: :delete %></td>
         </tr>
       <% end %>
     </tbody>
