@@ -3,6 +3,9 @@ class User < ApplicationRecord
   has_many :orders
   has_many :reviews
 
+  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+
   def order_count
     orders.group_by(&:status).transform_values(&:count)
   end
@@ -15,8 +18,7 @@ class User < ApplicationRecord
     orders.group_by(&:status).transform_values do |orders|
       orders.map(&:revenue).sum
     end
-  validates :username, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  end
 
   def self.build_from_github(auth_hash)
     user = User.new
