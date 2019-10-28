@@ -19,7 +19,7 @@
         </div>
         <div class="list-group list-group-flush">
           <% @categories.each do |category|%>
-            <%= link_to category.label, user_path(user.id), class:"list-group-item list-group-item-action" %>
+            <%= link_to category.label, user_path(category.id), class:"list-group-item list-group-item-action" %>
           <% end %>
         </div>
       </div>
