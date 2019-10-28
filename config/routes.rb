@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   get 'cart', to: 'orders#show', as: 'cart'
 
+  patch 'cart/:id', to: 'order_items#update', as: 'update_cart'
   delete 'cart/:id', to: 'order_items#destroy', as: 'remove_from_cart'
   
   get "/auth/github", as: "github_login"
