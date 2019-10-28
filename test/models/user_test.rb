@@ -32,6 +32,9 @@ describe User do
     end
   end
 
+
+  # still working on test.
+  
   describe 'custom methods' do
     describe 'order_count' do
       it 'returns a hash of order count by status' do

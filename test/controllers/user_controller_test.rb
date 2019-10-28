@@ -2,7 +2,7 @@ require "test_helper"
 describe UsersController do
 
   # fixtures :all
-#   let(:existing_work) { users(:album) }
+  #   let(:existing_work) { users(:album) }
 
   describe "users unauthenticated" do
     it "access all users page without logging in" do

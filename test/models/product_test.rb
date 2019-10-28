@@ -19,6 +19,7 @@ describe Product do
     end
   end
 
+# still working on the test.
 
   describe 'validation' do
     

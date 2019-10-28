@@ -39,7 +39,6 @@ class UsersController < ApplicationController
           return redirect_to root_path
         end
       end
-      # flash[:status] = :failure
       
       
       # If we get here, we have a valid user instance
