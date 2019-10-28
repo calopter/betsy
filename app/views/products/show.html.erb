@@ -1,0 +1,34 @@
+<h2>Show page</h2>
+
+<%= @product.name %>
+<%= image_tag @product.photo_url, alt: @product.photo_url %>
+<%= @product.description %>
+<%= @product.price %>
+
+
+<h4>Add a review</h4>
+<%= form_with model: @review do |f| %>
+
+  <%= f.label :rating %>
+  <%= f.text_field :rating %>
+
+  <%= f.label :user_review %>
+  <%= f.text_field :user_review %>
+
+  <%= f.label :product_id %>
+  <%= f.text_field @product.id %>
+
+
+  <%= f.submit "Submt review", method: :post %> 
+<% end %>
+
+<h4>Reviews</h4>
+<ul>
+  <li>
+    <% @product.reviews.each do |review| %>
+      <%= review.rating %>
+      <%= review.created_at %>
+      <%= review.user_review %>
+    <% end %>
+  </li>
+</ul>
