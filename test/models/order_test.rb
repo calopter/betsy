@@ -10,4 +10,13 @@ describe Order do
       expect(Order.new).must_respond_to :user
     end
   end
+
+  describe 'custom methods' do
+    describe 'revenue' do
+      it 'returns an accurate total cost of all order items' do
+        expect(orders(:o_1).revenue).must_equal 9600
+        # 100 * 90 + 100 * 6
+      end
+    end
+  end
 end

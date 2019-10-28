@@ -29,6 +29,9 @@ db/seed_data/
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Ignore ctags
+tags
+
 #Env
 .env
 
