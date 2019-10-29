@@ -26,7 +26,6 @@ class OrdersController < ApplicationController
   end
   
   def purchase_confirmation
-    
     @cart.status = "paid"
     
     @cart.date_time_order_purchased = DateTime.now
@@ -41,6 +40,9 @@ class OrdersController < ApplicationController
       product.save
     end
     @cart.save
+
+    new_cart = Order.create(user: @cart.user, status: "pending")
+    session[:order_id] = new_cart.id
   end
   
   def show
