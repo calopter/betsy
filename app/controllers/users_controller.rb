@@ -4,6 +4,17 @@ class UsersController < ApplicationController
       @categories = Category.all
       @products = Product.all
     end
+
+    def dashboard
+      user_id = session[:user_id]
+      item = params[:item] || 'products'
+
+      if item == 'products'
+        @products = Product.where(user_id: 3) # change to user_id
+      else 
+        @categories = Category.all
+      end
+    end
     
     def show
         is_authenticated?
@@ -43,7 +54,7 @@ class UsersController < ApplicationController
       
       # If we get here, we have a valid user instance
       session[:user_id] = user.id
-      return redirect_to root_path
+      return redirect_to dashboard_path
     end
   
     def destroy
@@ -61,6 +72,8 @@ class UsersController < ApplicationController
     def register
 
     end
+
+    # still working on it 
 
       # def signin
       #   user = User.find_by(username: username)
@@ -100,8 +113,6 @@ class UsersController < ApplicationController
         redirect_to root_path
         return
       end
-  
-  
     end
     
 end
