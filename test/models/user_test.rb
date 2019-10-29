@@ -8,7 +8,7 @@ describe User do
 
   describe 'relations' do
     it 'can have products' do
-      @user.must_respond_to :products
+      expect(@user).must_respond_to :products
     end
 
     it 'can have no products' do
@@ -20,7 +20,7 @@ describe User do
       assert_equal 1, @user.products.size
     end
     it 'can have orders' do
-      @user.must_respond_to :orders
+      expect(@user).must_respond_to :orders
     end
 
     it 'can have one order' do
@@ -29,7 +29,7 @@ describe User do
     end
 
     it 'can have reviews' do
-      @user.must_respond_to :reviews
+      expect(@user).must_respond_to :reviews
     end
   end
 
