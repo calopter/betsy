@@ -1,7 +1,46 @@
 class UsersController < ApplicationController
+  before_action :find_cart, only: [:edit, :update]
+  
+  def new
+    @user = User.new
+  end
 
-  skip_before_action :require_login, only: [:index, :show, :review], raise: false
+  def edit
+    @user = @cart.user
+  end
 
+  def update
+    user = @cart.user
+
+    if user.update(user_params)
+      flash[:status] = :success
+      flash[:result_text] = "successfully updated payment information"
+      redirect_to complete_purchase_path(@cart.id)
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "missing or invalid payment information"
+      redirect_to edit_user_path(@cart.user)
+    end
+  end
+  
+  def current
+    @current_user = User.find_by(id: session[:user_id])
+    unless @current_user
+      flash[:error] = "You must be logged in to see this page"
+      redirect_to root_path
+    end
+  end
+  
+  def logout
+    session[:user_id] = nil
+    flash[:message] = "You have logged out successfully."
+    redirect_to root_path
+  end
+  
+  def find_user
+    @current_user = User.find_by(id: session[:user_id])
+  end
+  
   def index
     @users = User.all
     @categories = Category.all
@@ -9,15 +48,15 @@ class UsersController < ApplicationController
   end
   
   def show
-      is_authenticated?
-      @user = User.find_by(id: params[:id])
-      
-      render_404 unless @user
+    is_authenticated?
+    @user = User.find_by(id: params[:id])
+    
+    render_404 unless @user
   end
-
+  
   def create
     auth_hash = request.env["omniauth.auth"]
-
+    
     user = User.find_by(uid: auth_hash[:uid], provider: "github")
     if user
       # User was found in the database
@@ -27,7 +66,7 @@ class UsersController < ApplicationController
       # User doesn't match anything in the DB
       # Attempt to create a new user
       user = User.build_from_github(auth_hash)
-
+      
       if user.save
         flash[:status] = :success
         flash[:result_text] = "Logged in as new user #{user.username}"
@@ -47,32 +86,27 @@ class UsersController < ApplicationController
     session[:user_id] = user.id
     return redirect_to root_path
   end
-
+  
   def destroy
     session[:user_id] = nil
     flash[:status] = :success
     flash[:result_text] = "Successfully logged out!"
-
+    
     redirect_to root_path
   end
-
-  def login
-  end
-
-  def register
-  end
-
-  def signin
-  end
-
+  
   private
 
+  def user_params
+    params.require(:user).permit(:email, :cc_name, :cc_number, :cc_expiration, :cvv, :billing_zip, :street_address, :city, :state, :mailing_zip)
+  end
+  
   def is_authenticated?
     is_logged_in = session[:user_id]
     if is_logged_in.nil?
       flash[:status] = :failure
       flash[:result_text] = "Can't access"
-
+      
       redirect_to root_path
       return
     end

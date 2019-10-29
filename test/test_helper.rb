@@ -14,6 +14,7 @@ class ActiveSupport::TestCase
   def add_to_cart(product = products(:p_1), quantity = 1)
     order_item_params = { order_item: { quantity: quantity } }
     post add_to_cart_path(product), params: order_item_params
+    find_cart
     return product
   end
 

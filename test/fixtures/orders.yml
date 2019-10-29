@@ -34,17 +34,17 @@ o_7:
   status: complete
   user: u_2
 
-o_8:
-  date_time_order_purchased: 2019-10-23 1:00:00 UTC
-  status: canceled
-  user: u_5
+# o_8:
+#   date_time_order_purchased: 2019-10-23 1:00:00 UTC
+#   status: canceled
+#   user: u_5
 
 o_9:
   date_time_order_purchased: 2019-10-23 1:00:00 UTC
   status: paid 
   user: u_3
 
-o_10:
-  date_time_order_purchased: 2019-10-23 1:00:00 UTC
-  status: pending
-  user: u_5
+# o_10:
+#   date_time_order_purchased: 2019-10-23 1:00:00 UTC
+#   status: pending
+#   user: u_5
