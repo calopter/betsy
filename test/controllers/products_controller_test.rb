@@ -47,7 +47,7 @@ describe ProductsController do
   describe "create" do 
     it "saves new product and redirects" do
       perform_login(@user)
-
+    
       product_hash = { product: { stock: 100, name: "Abu Jacket", description: "If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id }}
 
       expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
@@ -63,7 +63,7 @@ describe ProductsController do
   describe "edit" do 
     it "brings up edit form with rendered information" do 
       perform_login(@user)
-      get edit_product_path(id: products(:p_3).id)
+      get edit_product_path(id: products(:p_1).id)
       must_respond_with :success
     end 
 
@@ -71,6 +71,12 @@ describe ProductsController do
       perform_login(@user)
       get edit_product_path(id: -666)
       must_respond_with :not_found
+    end
+
+    it "will not send merchant to for another merchant's product" do
+      perform_login(@user)
+      get edit_product_path(id: products(:p_3).id)
+      must_redirect_to product_path(products(:p_3).id)
     end
   end 
 
@@ -80,13 +86,28 @@ describe ProductsController do
 
       updated_product_data = { product: { name: "Golden Scarab Beetle Mirrors", price: 700 } }
   
+      expect { patch product_path(products(:p_1).id), params: updated_product_data }.must_differ 'Product.count', 0
+  
+      patch product_path(products(:p_1).id), params: updated_product_data
+      updated_product = Product.find_by(id: products(:p_1).id)
+      
+      expect(updated_product.name).must_equal updated_product_data[:product][:name]
+      expect(updated_product.price).must_equal updated_product_data[:product][:price]
+      
+      must_redirect_to product_path(products(:p_1).id)
+    end 
+
+    it "does not allow merchant to edit another merchant's product " do 
+      perform_login(@user)
+
+      updated_product_data = { product: { name: "Golden Scarab Beetle Mirrors", price: 700 } }
+  
       expect { patch product_path(products(:p_2).id), params: updated_product_data }.must_differ 'Product.count', 0
   
       patch product_path(products(:p_2).id), params: updated_product_data
       updated_product = Product.find_by(id: products(:p_2).id)
       
-      expect(updated_product.name).must_equal updated_product_data[:product][:name]
-      expect(updated_product.price).must_equal updated_product_data[:product][:price]
+      expect(updated_product.name).must_equal "Aladdin Golden Scarab Beetle Mirrors"
       
       must_redirect_to product_path(products(:p_2).id)
     end 

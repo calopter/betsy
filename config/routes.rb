@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "users#index"
+  root to: "products#index"
   
   post 'products/:product_id/add', to: 'orders#add', as: 'add_to_cart'
   

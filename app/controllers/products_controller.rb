@@ -1,9 +1,7 @@
 class ProductsController < ApplicationController
-  # require login for all the actions except the following...
   before_action :require_login, except: [:index, :show, :review]
-  # skip_before_action :require_login, only: [:index, :show, :review], raise: false
   
-  #show all the products available for sale to ALL users
+  #users can browse all products
   def index
     @products = Product.all
   end 
@@ -35,29 +33,37 @@ class ProductsController < ApplicationController
     end
   end 
 
-  #pull up edit form for merchant to edit THEIR OWN product
+  #pull up edit form for merchant to edit their product
   def edit
     @product = Product.find_by(id: params[:id])
     
     if @product.nil?
       head :not_found
+    elsif @product.user_id != @login_user.id
+      flash[:message] = "You do not have permission to edit this product."
+      redirect_to product_path(@product.id)
     end
   end 
 
-  #a merchant can update THEIR OWN product
+  #a merchant can update their own product
   def update
     @product = Product.find_by(id: params[:id])
     
     if @product.nil?
       head :not_found
       return
+    elsif @product.user_id != @login_user.id
+      flash[:message] = "You do not have permission to update this product."
+      redirect_to product_path(@product.id)
+      return 
     else
       @product.update(product_params)
       redirect_to product_path(@product.id)
     end
   end
 
-  #ANY USER can rate a product 
+  # STILL WORKING ON IT - MOMO
+  # any user can rate a product 
   def review
     # Assuming this is true:
     #   - We get into this products#rate_product action by submitting a form
@@ -74,9 +80,9 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     else 
       if session[:user_id]
-        @product.reviews.create(review_params.merge({user_id: @login_user.id}).merge({product_id: @product.id}))
+        @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
       else 
-        @product.reviews.create(review_params.merge({user_id: nil}).merge({product_id: @product.id}))
+        @product.reviews.create(review_params.merge({user_id: nil, product_id: @product.id}))
       end 
       flash[:message] = "Thanks for your review!"
       redirect_to product_path(@product.id)
