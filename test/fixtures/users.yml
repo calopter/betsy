@@ -25,7 +25,7 @@ u_1:
   mailing_zip: 98112
   cc_name: Tea Soak
   cc_number: 358682578002068
-  cc_expiration: 2021-02-28 00-00-00 UTC
+  cc_expiration: 1021
   cvv: 345
   billing_zip: 80651
 
@@ -38,7 +38,7 @@ u_2:
   mailing_zip: 96834
   cc_name: Wheeled Kane
   cc_number: 6011393976149255
-  cc_expiration: 2021-05-31 00-00-00 UTC
+  cc_expiration: 0521
   cvv: 666
   billing_zip: 90892
 
@@ -51,7 +51,7 @@ u_3:
   mailing_zip: 34227
   cc_name: Hello Cat
   cc_number: 5599370810560063
-  cc_expiration: 2021-07-31 00-00-00 UTC
+  cc_expiration: 0722
   cvv: 777
   billing_zip: 08880
 
@@ -64,6 +64,6 @@ u_4:
   mailing_zip: 76112
   cc_name: Gretchen del Valle
   cc_number: 4199213496260607
-  cc_expiration: 2021-02-28 00-00-00 UTC
+  cc_expiration: 0821
   cvv: 999
   billing_zip: 67834

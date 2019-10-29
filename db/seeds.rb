@@ -30,8 +30,6 @@ end
 puts "Added #{Category.count} category records"
 puts "#{category_failures.length} categories failed to save "
 
-
-# USERS
 USERS_FILE = Rails.root.join('db', 'seed_data','users.csv')
 puts "Loading raw usesrs data from #{USERS_FILE}"
 
@@ -131,7 +129,6 @@ CSV.foreach(ORDERS_FILE, :headers => true) do |row|
   order.date_time_order_purchased = DateTime.parse(order_casi_dt)
   order.status = row['status']
   order.user_id = row['user_id'].to_i
-  # binding.pry
   successful = order.save
   
   if !successful
