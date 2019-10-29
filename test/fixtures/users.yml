@@ -58,6 +58,8 @@ u_3:
   cc_expiration: 2021-07-31 00-00-00 UTC
   cvv: 777
   billing_zip: 08880
+  provider: github
+  uid: 789
 
 u_4:
   username: sally
@@ -71,3 +73,5 @@ u_4:
   cc_expiration: 2021-02-28 00-00-00 UTC
   cvv: 999
   billing_zip: 67834
+  provider: github
+  uid: 1011

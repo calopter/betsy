@@ -34,99 +34,76 @@ describe ProductsController do
       get product_path(777)
       must_respond_with :not_found
     end
-
-    describe "new" do
-      it "responds with success" do
-        perform_login(@user)
-        get new_product_path
-        must_respond_with :success
-      end
-    end
-
-    describe "create" do 
-      it "saves new product and redirects" do
-        perform_login(@user)
-
-        product_hash = { product: { stock: 100, name: "Abu Jacket", description: "If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id }}
-
-        expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
-      
-        must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
-      end
-
-      # it "renders if product was not saved" do 
-      # end 
-    end 
-    
-
-    describe "edit" do 
-      it "brings up edit form with rendered information" do 
-        perform_login(@user)
-        get edit_product_path(id: products(:p_3).id)
-        must_respond_with :success
-      end 
-
-      it "will send to not_found for invalid product_id" do
-        perform_login(@user)
-        get edit_product_path(id: -666)
-        must_respond_with :not_found
-      end
-    end 
-
-    describe "update" do 
-      it "saves updated information to existing product, redirects, and doesn't change product count" do 
-        perform_login(@user)
-
-        updated_product_data = { product: { name: "Golden Scarab Beetle Mirrors", price: 700 } }
-    
-        expect { patch product_path(products(:p_2).id), params: updated_product_data }.must_differ 'Product.count', 0
-    
-        patch product_path(products(:p_2).id), params: updated_product_data
-        updated_product = Product.find_by(id: products(:p_2).id)
-        
-        expect(updated_product.name).must_equal updated_product_data[:product][:name]
-        expect(updated_product.price).must_equal updated_product_data[:product][:price]
-        
-        must_redirect_to product_path(products(:p_2).id)
-      end 
-
-      it "redirects to not_found if product id does not exist" do 
-        perform_login(@user)
-
-        patch product_path(-777), params: { product: { price: 700} }
-        must_respond_with :not_found
-      end 
-    end 
-
-    describe "destroy" do 
-      it "deletes product from db and redirects" do
-        perform_login(@user)
-        # binding.pry
-        # delete remove_from_cart_path(order_items(:o_i_1))
-        expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
-        must_redirect_to products_path
-      end 
-
-      # it "doesn't delete product if product doesn't exist" do
-      #   # perform_login(@user)
-
-      #   Product.destroy_all
-      #   expect { delete product_path(products(:p_3).id) }.must_differ "Product.count", 0
-      #   must_respond_with :not_found
-      # end 
-
-      # it "doesn't delete product if it's not one of merchant's product" do
-        
-      # end 
-    end 
-
-    # describe "review" do 
-    #   it "saves review and redirects" do
-    #   end 
-
-    #   it "renders if review not saved" do 
-    #   end 
-    # end 
   end 
 
+  describe "new" do
+    it "responds with success" do
+      perform_login(@user)
+      get new_product_path
+      must_respond_with :success
+    end
+  end 
+
+  describe "create" do 
+    it "saves new product and redirects" do
+      perform_login(@user)
+
+      product_hash = { product: { stock: 100, name: "Abu Jacket", description: "If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id }}
+
+      expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
+    
+      must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
+    end
+
+    # it "renders if product was not saved" do 
+    # end 
+  end 
+    
+
+  describe "edit" do 
+    it "brings up edit form with rendered information" do 
+      perform_login(@user)
+      get edit_product_path(id: products(:p_3).id)
+      must_respond_with :success
+    end 
+
+    it "will send to not_found for invalid product_id" do
+      perform_login(@user)
+      get edit_product_path(id: -666)
+      must_respond_with :not_found
+    end
+  end 
+
+  describe "update" do 
+    it "saves updated information to existing product, redirects, and doesn't change product count" do 
+      perform_login(@user)
+
+      updated_product_data = { product: { name: "Golden Scarab Beetle Mirrors", price: 700 } }
+  
+      expect { patch product_path(products(:p_2).id), params: updated_product_data }.must_differ 'Product.count', 0
+  
+      patch product_path(products(:p_2).id), params: updated_product_data
+      updated_product = Product.find_by(id: products(:p_2).id)
+      
+      expect(updated_product.name).must_equal updated_product_data[:product][:name]
+      expect(updated_product.price).must_equal updated_product_data[:product][:price]
+      
+      must_redirect_to product_path(products(:p_2).id)
+    end 
+
+    it "redirects to not_found if product id does not exist" do 
+      perform_login(@user)
+
+      patch product_path(-777), params: { product: { price: 700} }
+      must_respond_with :not_found
+    end 
+  end 
+
+  describe "review" do 
+    it "saves review and redirects" do
+    end 
+
+    it "renders if review not saved" do 
+    end 
+  end 
 end

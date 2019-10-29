@@ -55,28 +55,7 @@ class ProductsController < ApplicationController
       @product.update(product_params)
       redirect_to product_path(@product.id)
     end
-  end 
-
-  #a merchant can destroy THEIR OWN product
-  def destroy
-    selected_prod = Product.find_by(id: params[:id])
-    
-    if selected_prod.nil?
-      head :not_found
-      return
-    elsif 
-      selected_prod.user_id != session[:user_id]
-      flash[:message] = "You do not have permission to delete this product."
-      redirect_to product_path(selected_prod.id)
-      return 
-    else
-      selected_prod.destroy
-      redirect_to products_path
-      return
-    end 
-  end 
-
-  #STILL WORKING ON THIS -MOMO
+  end
 
   #ANY USER can rate a product 
   def review
