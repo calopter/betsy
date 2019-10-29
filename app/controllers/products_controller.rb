@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   # require login for all the actions except the following...
-  before_action :require_login
-  skip_before_action :require_login, only: [:index, :show, :review], raise: false
+  before_action :require_login, except: [:index, :show, :review]
+  # skip_before_action :require_login, only: [:index, :show, :review], raise: false
   
   #show all the products available for sale to ALL users
   def index
@@ -59,26 +59,21 @@ class ProductsController < ApplicationController
 
   #a merchant can destroy THEIR OWN product
   def destroy
-    # if session[:user_id]
-      selected_prod = Product.find_by(id: params[:id])
-      
-      if selected_prod.nil?
-        head :not_found
-        return
-      elsif 
-        selected_prod.user_id != session[:user_id]
-        flash[:message] = "You do not have permission to delete this product."
-        redirect_to product_path(selected_prod.id)
-        return 
-      else
-        selected_prod.destroy
-        redirect_to products_path
-        return
-      end 
-    # else 
-    #   flash[:message] = "You must be a merchant to do this"
-    #   redirect_to product_path(selected_prod.id)
-    # end 
+    selected_prod = Product.find_by(id: params[:id])
+    
+    if selected_prod.nil?
+      head :not_found
+      return
+    elsif 
+      selected_prod.user_id != session[:user_id]
+      flash[:message] = "You do not have permission to delete this product."
+      redirect_to product_path(selected_prod.id)
+      return 
+    else
+      selected_prod.destroy
+      redirect_to products_path
+      return
+    end 
   end 
 
   #STILL WORKING ON THIS -MOMO

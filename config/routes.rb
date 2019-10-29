@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "users#index"
+  root to: "users#index"
   
   post 'products/:product_id/add', to: 'orders#add', as: 'add_to_cart'
   
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   
   get "/auth/github", as: "github_login"
 
-  get "/auth/:provider/callback", to: "users#create"
+  get "/auth/:provider/callback", to: "users#create", as: "auth_callback"
 
   resources :users, only: [:show, :register]
 

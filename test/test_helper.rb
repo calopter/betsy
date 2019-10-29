@@ -1,3 +1,4 @@
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 # require_relative '../config/environment'
@@ -18,5 +19,27 @@ class ActiveSupport::TestCase
 
   def find_cart
     @cart ||= Order.find_by(id: session[:order_id])
+  end
+
+  def setup
+    OmniAuth.config.test_mode = true
+  end
+
+  def mock_auth_hash(user)
+    return {
+      provider: user.provider,
+      uid: user.uid,
+      info: {
+        email: user.email,
+        nickname: user.username
+      }
+    }
+  end
+
+  def perform_login(user = nil)
+    user ||= User.first
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(user))
+    get auth_callback_path(:github)
+    return user
   end
 end

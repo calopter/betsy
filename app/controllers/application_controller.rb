@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
       if session[:user_id]
         @login_user = User.find_by(id: session[:user_id])
       end
+      return @login_user
     end
     
     def get_cart

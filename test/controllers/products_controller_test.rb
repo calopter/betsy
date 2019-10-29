@@ -1,6 +1,9 @@
 require "test_helper"
 
 describe ProductsController do
+  before do 
+    @user = users(:u_1)
+  end 
 
   describe "index" do 
     it "shows all products saved and page showed successfully" do
@@ -34,6 +37,7 @@ describe ProductsController do
 
     describe "new" do
       it "responds with success" do
+        perform_login(@user)
         get new_product_path
         must_respond_with :success
       end
@@ -49,25 +53,18 @@ describe ProductsController do
       
         must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
       end
-
-      #VALIDATION TEST
-      # it "does not save and renders on new page when there is an invalid product submission" do
-      #   product_hash = { product: { stock: 100, name: "", description:"If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id  }}
-        
-      #   expect { post products_path, params: product_hash }.must_differ 'Product.count', 0
-      
-      #   must_respond_with :success
-      # end
     end 
     
 
     describe "edit" do 
       it "brings up edit form with rendered information" do 
+        perform_login(@user)
         get edit_product_path(id: products(:p_3).id)
         must_respond_with :success
       end 
 
       it "will send to not_found for invalid product_id" do
+        perform_login(@user)
         get edit_product_path(id: -666)
         must_respond_with :not_found
       end
@@ -90,6 +87,8 @@ describe ProductsController do
       end 
 
       it "redirects to not_found if product id does not exist" do 
+        perform_login(@user)
+
         patch product_path(-777), params: { product: { price: 700} }
         must_respond_with :not_found
       end 

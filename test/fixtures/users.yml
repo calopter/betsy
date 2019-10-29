@@ -28,6 +28,8 @@ u_1:
   cc_expiration: 2021-02-28 00-00-00 UTC
   cvv: 345
   billing_zip: 80651
+  provider: github
+  uid: 123
 
 u_2:
   username: mycroft
@@ -41,6 +43,8 @@ u_2:
   cc_expiration: 2021-05-31 00-00-00 UTC
   cvv: 666
   billing_zip: 90892
+  provider: github
+  uid: 456
 
 u_3:
   username: hello_kitty
