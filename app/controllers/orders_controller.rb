@@ -15,10 +15,8 @@ class OrdersController < ApplicationController
       verification = User.verify_user_at_purchase(@cart.user)
       if verification != nil
         #there are validation errors from the user model
-        verification.each do |name, message|
-          flash[:name] = "#{name.to_s}"
-          flash[:message] = "#{message[0]}"
-        end
+        flash[:status] = :error
+        flash[:messages] = verification
         redirect_to edit_user_path(@cart.user.id)
         return
       end
