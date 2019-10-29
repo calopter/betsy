@@ -44,12 +44,12 @@ describe ProductsController do
     end
 
     describe "create" do 
-      it "can create a new product with valid information accurately, and redirect" do
+      it "saves new product and redirects" do
+        perform_login(@user)
+
         product_hash = { product: { stock: 100, name: "Abu Jacket", description: "If the monkey wore it, I can wear it.", photo_url: "https://cdn-ssl.s7.disneystore.com/is/image/DisneyShopping/2845055508425", price: 50000, user_id: users(:u_1).id }}
 
-        expect {
-        post products_path, params: product_hash
-        }.must_differ 'Product.count', 1
+        expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
       
         must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
       end
@@ -70,16 +70,17 @@ describe ProductsController do
       end
     end 
 
-    #STILL WORKING ON THIS -MOMO
     describe "update" do 
       it "saves updated information to existing product, redirects, and doesn't change product count" do 
+        perform_login(@user)
+
         updated_product_data = { product: { name: "Golden Scarab Beetle Mirrors", price: 700 } }
     
         expect { patch product_path(products(:p_2).id), params: updated_product_data }.must_differ 'Product.count', 0
     
         patch product_path(products(:p_2).id), params: updated_product_data
         updated_product = Product.find_by(id: products(:p_2).id)
-        # binding.pry
+        
         expect(updated_product.name).must_equal updated_product_data[:product][:name]
         expect(updated_product.price).must_equal updated_product_data[:product][:price]
         
@@ -94,32 +95,34 @@ describe ProductsController do
       end 
     end 
 
-    # STILL NOT WORKING -MOMO
     describe "destroy" do 
-      it "removes product from db, redirects, and product count decreases" do
-        skip
-        
+      it "deletes product from db and redirects" do
+        perform_login(@user)
+        # binding.pry
         expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
         must_redirect_to products_path
       end 
 
-      it "doesn't remove product if it's already removed or db is empty" do
-        skip
+      # it "doesn't delete product if product doesn't exist" do
+      #   # perform_login(@user)
+
+      #   Product.destroy_all
+      #   expect { delete product_path(products(:p_3).id) }.must_differ "Product.count", 0
+      #   must_respond_with :not_found
+      # end 
+
+      # it "doesn't delete product if it's not one of merchant's product" do
         
-        Product.destroy_all
-        expect { delete product_path(products(:p_3).id) }.must_differ "Product.count", 0
-        must_respond_with :not_found
-      end 
-    end 
-
-    describe "rate_product" do 
-      # it "adds review to db, review count increases, and redirects" do
-      # end 
-
-      # #validation test
-      # it "does not save review if does not fill in correct information" do 
       # end 
     end 
+
+    # describe "review" do 
+    #   it "saves review and redirects" do
+    #   end 
+
+    #   it "renders if review not saved" do 
+    #   end 
+    # end 
   end 
 
 end
