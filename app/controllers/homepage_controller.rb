@@ -1,5 +1,0 @@
-class HomepageController < ApplicationController
-
- 
-
-end
