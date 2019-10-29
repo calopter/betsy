@@ -1,0 +1,9 @@
+<h1>Add a new Category</h1>
+<%= form_with model: @Category do |f| %>
+  <%# <div class> %>
+  <%= f.label :retired %>
+  <%= f.select :retired, [['Retired', 1], ['Active', 2]]%>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit "#{action_name.capitalize} Category", class: "btn btn-primary"%>
+<% end %>
