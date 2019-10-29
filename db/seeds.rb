@@ -185,7 +185,7 @@ CSV.foreach(ORDER_ITEMS_FILE, :headers => true) do |row|
   order_item.shipping_status = row['shipping_status']
   order_item.product_id = row['product_id']
   order_item.order_id = row['order_id']
-  
+  # binding.pry
   successful = order_item.save
   
   if !successful
@@ -200,4 +200,19 @@ puts "Added #{OrderItem.count} order_item records"
 puts "#{order_item_failures.length} order_item failed to save "
 
 
+# adjusts the paid orders back
+orders = Order.all
+paid = [2, 6, 9]
+orders.each do |order|
+  if order.id == 2
+    order.status = "paid"
+    order.save
+  elsif order.id == 6
+    order.status = "paid"
+    order.save
+  elsif order.id == 9
+    order.status = "paid"
+    order.save
+  end
+end
 
