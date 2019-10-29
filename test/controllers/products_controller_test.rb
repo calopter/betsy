@@ -10,7 +10,7 @@ describe ProductsController do
       get products_path
       must_respond_with :success
     end
-
+    
     it "even if there are no products saved but index succesfully shows" do
       Review.destroy_all
       OrderItem.destroy_all
@@ -19,13 +19,13 @@ describe ProductsController do
       must_respond_with :success
     end
   end 
-
+  
   describe "show" do 
     it "responds with success when showing a valid product" do
       product = products(:p_1)
       get product_path(product.id)
       must_respond_with :success
-
+      
       expect(product.name).must_equal "ADULT RED FEZ HAT"
       expect(product.price).must_equal 20000
     end
@@ -126,5 +126,5 @@ describe ProductsController do
 
     it "renders if review not saved" do 
     end 
-  end 
+  end
 end

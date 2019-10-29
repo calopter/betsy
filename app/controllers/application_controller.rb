@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
       end
       return @login_user
     end
+
+    def find_cart
+      @cart = Order.find_by(id: get_cart[:order_id])
+    end
     
     def get_cart
       id = session[:order_id]

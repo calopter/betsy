@@ -89,3 +89,5 @@ end
 
 gem "omniauth"
 gem "omniauth-github"
+
+gem "pry-byebug"
