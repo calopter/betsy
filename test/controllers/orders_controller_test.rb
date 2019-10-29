@@ -5,7 +5,6 @@ describe OrdersController do
     before do
       add_to_cart
       @order = Order.find_by(id: session[:order_id])
-      # binding.pry
     end
     
     it "completing a purchase changes an order's status" do
@@ -44,27 +43,32 @@ describe OrdersController do
       
     end
     
-    
     it "if a purchase is not being made, validations needed for purchase such as email, cc information etc. are not being run" do
-      user = User.first
-      user.email = ""
-      order = Order.first
-      order.user_id = user.id
+      order = Order.find_by(id: session[:order_id])
       order.status = "pending"
+      user = User.first
+      order.user_id = user.id
+      user.email = nil
+      order.save
+      user.save
+      
       assert(user.valid?)
     end
     
     it "if a purchase is being made, validations needed are being run" do
-      skip
       
+      order = Order.find_by(id: session[:order_id])
+      order.status = "pending"
       user = User.first
-      user.email = ""
-      order = Order.first
       order.user_id = user.id
+      user.email = nil
+      order.save
+      user.save
       
-      post orders_purchase_confirmation_path(order.id)
+      get complete_purchase_path(order.id)
       
       must_redirect_to root_path
+      
     end
     
   end

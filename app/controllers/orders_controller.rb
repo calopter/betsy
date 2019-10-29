@@ -10,11 +10,13 @@ class OrdersController < ApplicationController
       return
     end
     
-    if !@cart.user.valid?
-      redirect_to root_path
-      return
+    if @cart.status = "pending"
+      verification = User.verify_user_at_purchase(@cart.user)
+      if verification == "F"
+        redirect_to root_path
+        return
+      end
     end
-    
     # @order_price = Order.price(@current_order.id)
     
     purchase_confirmation
