@@ -50,8 +50,8 @@ class OrdersController < ApplicationController
   
   def add
     order = get_cart
-    order_item = OrderItem.new(order_item_params.merge(order)
-    .merge(product_id))
+    order_item = OrderItem.new(order_item_params.merge(order).merge(product_id))
+
     if order_item.save
       session[:order_id] = order[:order_id]
       flash[:status] = :success

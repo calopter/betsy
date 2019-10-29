@@ -1,6 +1,4 @@
 Rails.application.routes.draw do 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  
   root to: "products#index"
   
   get "/orders/:id/complete_purchase", to: "orders#complete_purchase", as: "complete_purchase"
@@ -16,8 +14,8 @@ Rails.application.routes.draw do
   delete 'cart/:id', to: 'order_items#destroy', as: 'remove_from_cart'
   
   get "/auth/github", as: "github_login"
-  
-  get "/auth/:provider/callback", to: "users#create"
+
+  get "/auth/:provider/callback", to: "users#create", as: "auth_callback"
   
   resources :users, only: [:show, :register, :edit, :update]
   
@@ -25,9 +23,9 @@ Rails.application.routes.draw do
   get "/signin", to: "users#signin", as: "signin"
   get "/register", to: "users#register", as: "register"
   delete "/logout", to: "users#destroy", as: "logout"
-  
+
   resources :orders
-  resources :products
+
   resources :products do 
     member do 
       post 'review'

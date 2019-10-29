@@ -1,8 +1,7 @@
 class ProductsController < ApplicationController
-  # require login for all the actions except the following...
-  # skip_before_action :require_login, only[:index, :show, :review]
+  before_action :require_login, except: [:index, :show, :review]
   
-  #show all the products available for sale to ALL users
+  #users can browse all products
   def index
     @products = Product.all
   end 
@@ -24,7 +23,7 @@ class ProductsController < ApplicationController
 
   #a merchant can add a new product
   def create
-    @product = Product.new(product_params)
+    @product = Product.new(product_params.merge({user_id: @login_user.id}))
     
     if @product.save
       redirect_to product_path(@product.id)
@@ -34,55 +33,37 @@ class ProductsController < ApplicationController
     end
   end 
 
-  #pull up edit form for merchant to edit THEIR OWN product
+  #pull up edit form for merchant to edit their product
   def edit
     @product = Product.find_by(id: params[:id])
     
     if @product.nil?
       head :not_found
+    elsif @product.user_id != @login_user.id
+      flash[:message] = "You do not have permission to edit this product."
+      redirect_to product_path(@product.id)
     end
   end 
 
-  #a merchant can update THEIR OWN product
+  #a merchant can update their own product
   def update
     @product = Product.find_by(id: params[:id])
     
     if @product.nil?
       head :not_found
       return
+    elsif @product.user_id != @login_user.id
+      flash[:message] = "You do not have permission to update this product."
+      redirect_to product_path(@product.id)
+      return 
     else
       @product.update(product_params)
       redirect_to product_path(@product.id)
     end
-  end 
+  end
 
-  #a merchant can destroy THEIR OWN product
-  def destroy
-    if session[:user_id]
-      selected_prod = Product.find_by(id: params[:id])
-      
-      if selected_prod.nil?
-        head :not_found
-        return
-      elsif 
-        selected_prod.user_id != session[:user_id]
-        flash[:message] = "You do not have permission to delete this product."
-        redirect_to product_path(selected_prod.id)
-        return 
-      else
-        selected_prod.destroy
-        redirect_to products_path
-        return
-      end 
-    else 
-      flash[:message] = "You must be a merchant to do this"
-      redirect_to product_path(selected_prod.id)
-    end 
-  end 
-
-  #STILL WORKING ON THIS -MOMO
-
-  #ANY USER can rate a product 
+  # STILL WORKING ON IT - MOMO
+  # any user can rate a product 
   def review
     # Assuming this is true:
     #   - We get into this products#rate_product action by submitting a form
@@ -99,11 +80,9 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     else 
       if session[:user_id]
-        #not sure if this would grab user_id from session
-        @product.reviews.create(review_params)
+        @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
       else 
-        #need to set user_id to nil in params
-        @product.reviews.create(review_params)
+        @product.reviews.create(review_params.merge({user_id: nil, product_id: @product.id}))
       end 
       flash[:message] = "Thanks for your review!"
       redirect_to product_path(@product.id)
@@ -113,7 +92,7 @@ class ProductsController < ApplicationController
   private
   
   def product_params
-    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :user_id, :retired)
+    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :retired)
   end
 
   #STILL WORKING ON THIS -MOMO
@@ -122,7 +101,13 @@ class ProductsController < ApplicationController
     # The only reason why this would change is:
     #   1. If review requires different fields
     #   2. If your form view helper is a little different. Aka, it will look like this if you use form_with and a model, it will probably look different if you do something else
-    return params.require(:review).permit(:rating, :user_review, :product_id, :user_id)
+    return params.require(:review).permit(:rating, :user_review)
   end
 
+  def require_login
+    if find_user.nil?
+      flash[:error] = "You must be logged in to view this section"
+      redirect_to products_path
+    end 
+  end 
 end
