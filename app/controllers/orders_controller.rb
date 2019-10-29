@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_action :find_user, only:[:complete_purchase, :purchase_confirmation]
-  before_action :find_cart, only:[:complete_purchase, :purchase_confirmation]
+  before_action :find_cart, only:[:complete_purchase, :purchase_confirmation, :add]
   
   def complete_purchase
     if @cart.order_items.count == 0
@@ -51,13 +51,17 @@ class OrdersController < ApplicationController
   end
   
   def add
-    order = get_cart
-    order_item = OrderItem.new(order_item_params.merge(order).merge(product_id))
+    order_item = @cart.order_items.find {|oi| oi.product.id.to_s == product_id[:product_id]}
+    if order_item
+      order_item.quantity += order_item_params[:quantity].to_i
+    else
+      order_item = OrderItem.new(order_item_params.merge({order_id: @cart.id}).merge(product_id))
+    end
 
     if order_item.save
-      session[:order_id] = order[:order_id]
+      session[:order_id] = @cart.id
       flash[:status] = :success
-      flash[:result_text] = "Added #{ order_item.quantity } #{ order_item.product.name } to cart"
+      flash[:result_text] = "Added #{ order_item_params[:quantity] } #{ order_item.product.name } to cart"
     else
       flash[:status] = :error
       flash[:error] = "unable to add to cart"

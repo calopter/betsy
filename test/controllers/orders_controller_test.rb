@@ -183,6 +183,13 @@ describe OrdersController do
         expect(order.order_items.count).must_equal 2
         expect(order.order_items.last.product).must_equal products(:p_2)
       end
+
+      it 'consolidates order items of same products' do
+        add_to_cart
+
+        expect{ add_to_cart }.wont_change "@cart.order_items.count"
+        expect(@cart.order_items.first.quantity).must_equal 2
+      end
     end
   end
 end
