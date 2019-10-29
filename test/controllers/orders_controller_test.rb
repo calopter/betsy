@@ -18,25 +18,30 @@ describe OrdersController do
       @order.save
       
       get complete_purchase_path(@order.id)
-      post orders_purchase_confirmation_path(@order.id)
       
       order = Order.find_by(id: @order.id)
       expect(order.status).must_equal expected_order_status
     end
     
     it "completing a purchase adjusts the stock amount for related products" do
-      #finds products associated with order
-      # @order =
-      skip
       
-      @products = Product.where(id: OrderItem.find_by(order_id: @order.id).product_id)
+      order = Order.find_by(id: session[:order_id])
       
-      special = @products.first
-      special.stock = 100
+      assigned_user = users(:u_1)
+      order.user_id = assigned_user.id
+      order.save
       
-      post orders_purchase_confirmation_path(@order.id)
+      product_id = order.order_items[0].product_id
+      quantity = order.order_items[0].quantity
       
-      expect(special.stock).must_equal 4
+      before_quantity = Product.find_by(id: product_id).stock
+      after_quantity = before_quantity - quantity
+      
+      get complete_purchase_path(order.id)
+      
+      after_product = Product.find_by(id: product_id)
+      expect(after_product.stock).must_equal after_quantity
+      
     end
     
     
@@ -60,7 +65,6 @@ describe OrdersController do
       post orders_purchase_confirmation_path(order.id)
       
       must_redirect_to root_path
-      binding.pry
     end
     
   end
