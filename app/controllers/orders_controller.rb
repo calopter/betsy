@@ -13,9 +13,11 @@ class OrdersController < ApplicationController
     if @cart.status = "pending"
       verification = User.verify_user_at_purchase(@cart.user)
       if verification != nil
-        @error_messages = verification
-        #hopefully this allows error messages to be seen by a View at some time later. 
-        binding.pry
+        verification.each do |name, message|
+          flash[:name] = "#{name.to_s}"
+          flash[:message] = "#{message[0]}"
+        end
+        # hopefully this allows error messages to be seen by a View at some time later. 
         return
       end
     end
