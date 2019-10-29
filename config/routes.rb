@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "products#index"
+  root "homepage#index"
   
   get "/auth/github", as: "github_login"
 
@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get "/signin", to: "users#signin", as: "signin"
   get "/register", to: "users#register", as: "register"
   delete "/logout", to: "users#destroy", as: "logout"
+  # get "/"
+
+  # create a path for Category
 
   resources :products
   resources :products do 
