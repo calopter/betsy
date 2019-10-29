@@ -55,16 +55,39 @@ class UsersController < ApplicationController
     end
   
     def login
-
+      
     end
 
     def register
 
     end
 
-    def signin
+      # def signin
+      #   user = User.find_by(username: username)
+      #   #username = params[:username]
+      #   raise
 
-    end
+      #   if username and user = User.find_by(username: username)
+      #     session[:user_id] = user.id
+      #     flash[:status] = :success
+      #     flash[:result_text] = "Successfully logged in as existing user #{user.username}"
+      #   else
+      #     user = User.new(username: username, email: email )
+      #     if user.save
+      #       session[:user_id] = user.id
+      #       flash[:status] = :success
+      #       flash[:result_text] = "Successfully created new user #{user.username} with ID #{user.id}"
+      #     else
+      #       flash.now[:status] = :failure
+      #       flash.now[:result_text] = "Could not log in"
+      #       flash.now[:messages] = user.errors.messages
+      #       render "login", status: :bad_request
+      #       return
+      #     end
+      #   end
+      #   redirect_to root_path
+      # end
+      
     private
   
     def is_authenticated?
