@@ -54,12 +54,15 @@ class OrdersController < ApplicationController
     .merge(product_id))
     if order_item.save
       session[:order_id] = order[:order_id]
-      flash[:success] = "Added #{ order_item.quantity } #{ order_item.product.name } to cart"
+      flash[:status] = :success
+      flash[:result_text] = "Added #{ order_item.quantity } #{ order_item.product.name } to cart"
     else
+      flash[:status] = :error
       flash[:error] = "unable to add to cart"
       flash[:messages] = order_item.errors.messages
+      return redirect_to product_path(product_id[:product_id])
     end
-    redirect_to cart_path
+    return redirect_to product_path(product_id[:product_id])
   end
   
   private
