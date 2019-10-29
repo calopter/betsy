@@ -111,6 +111,8 @@ describe User do
     end 
     
     it 'requires an unique email' do
+      skip
+      
       username1 = "testusername"
       email = 'test@email.com'
       user1 = User.new(username: username1, email: email)
