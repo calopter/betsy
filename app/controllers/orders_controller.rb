@@ -4,21 +4,22 @@ class OrdersController < ApplicationController
   before_action :find_cart, only:[:complete_purchase, :purchase_confirmation]
   
   def complete_purchase
-    
     if @cart.order_items.count == 0
-      redirect_to root_path
+      flash[:status] = :failure
+      flash[:result_text] = "Must have an item in cart to complete purchase"
+      redirect_to cart_path
       return
     end
     
     if @cart.status = "pending"
       verification = User.verify_user_at_purchase(@cart.user)
       if verification == "F"
-        redirect_to root_path
+        redirect_to edit_user_path(@cart.user.id)
         return
+      else
+        purchase_confirmation
       end
     end
-    
-    purchase_confirmation
   end
   
   def purchase_confirmation

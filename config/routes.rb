@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   
   get "/auth/:provider/callback", to: "users#create"
   
-  resources :users, only: [:show, :register]
+  resources :users, only: [:show, :register, :edit, :update]
   
   get "/login", to: "users#login", as: "login"
   get "/signin", to: "users#signin", as: "signin"

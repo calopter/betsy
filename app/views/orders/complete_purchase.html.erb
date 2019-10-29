@@ -14,14 +14,14 @@
     <% @order_items.each do |order_item| %>
       <tr>
         <td> <%= order_item.quantity %></td>
-        <td> <%= Product.find_by(id: order_item.product_id).price %></td>
-        <td> I am price, I will be here soonish</td>
-        <td><%= link_to Product.find_by(id: order_item.product_id).name, product_path(Product.find_by(id: order_item.product_id).id) %></td>
+        <td> $<%= order_item.product.price %></td>
+        <td> $<%= order_item.total %></td>
+        <td><%= link_to order_item.product.name, products_path(order_item.product) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h3 class= "summary"> Total Price: $<%= @order_price%> </h3>
+<h3 class= "summary"> Total Price: $<%= @cart.revenue %> </h3>
 <h3 class= "summary"> Order Placed: <%= @cart.date_time_order_purchased %></h3>
 <h3 class= "summary"> Order Status: <%= @cart.status %> </h3>

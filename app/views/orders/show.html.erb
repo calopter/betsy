@@ -24,7 +24,6 @@
               <%= f.text_field :quantity %>
               <%= f.submit "update" %>
             <% end %>
-            <%# order_item.quantity %>
           </td>
           <td>$<%= Order.formatter order_item.product.price %></td>
           <td>$<%= Order.formatter order_item.total %></td>

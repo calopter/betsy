@@ -1,14 +1,29 @@
 class UsersController < ApplicationController
+  before_action :find_cart, only: [:edit, :update]
+  
   def new
     @user = User.new
   end
-  
-  def login
-    
+
+  def edit
+    @user = @cart.user
+  end
+
+  def update
+    user = @cart.user
+
+    if user.update(user_params)
+      flash[:status] = :success
+      flash[:result_text] = "successfully updated payment information"
+      redirect_to complete_purchase_path(@cart.id)
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "missing or invalid payment information"
+      redirect_to edit_user_path(@cart.user)
+    end
   end
   
   def current
-    # raise
     @current_user = User.find_by(id: session[:user_id])
     unless @current_user
       flash[:error] = "You must be logged in to see this page"
@@ -67,7 +82,6 @@ class UsersController < ApplicationController
       end
     end
     
-    
     # If we get here, we have a valid user instance
     session[:user_id] = user.id
     return redirect_to root_path
@@ -80,22 +94,14 @@ class UsersController < ApplicationController
     
     redirect_to root_path
   end
-  
-  def register
-    
-  end
-  
-  def signin
-    
-  end
-  
-
-  
-  
+ 
   private
+
+  def user_params
+    params.require(:user).permit(:email, :cc_name, :cc_number, :cc_expiration, :cvv, :billing_zip, :street_address, :city, :state, :mailing_zip)
+  end
   
   def is_authenticated?
-    
     is_logged_in = session[:user_id]
     if is_logged_in.nil?
       flash[:status] = :failure
@@ -104,8 +110,5 @@ class UsersController < ApplicationController
       redirect_to root_path
       return
     end
-    
-    
   end
-  
 end
