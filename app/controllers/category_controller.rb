@@ -3,11 +3,11 @@ class CategoryController < ApplicationController
     before_action :missing_category, only: [:show]
 
     def index 
-        @category = Category.all
+        @category = Category.all.order(:id)
     end
 
     def new
-        @category = Category.new
+        @category = Category.new    
     end
 
     def create 
@@ -16,22 +16,42 @@ class CategoryController < ApplicationController
             flash[:status] = :success
             flash[:result_text] = "Successfully added a new category"
 
-            redirect_to root_path
+            redirect_to dashboard_path
         else
             flash[:status] = :failure
             flash[:result_text] = "Failed to add a new category"
 
-            redirect_to root_path
+            redirect_to dashboard_path
         end
     end
 
     def show
     end
+    def edit
+        @category = Category.find_by(id: params[:id])
+        
+        if @category.nil?
+          head :not_found
+        end
+    end
+
+    def update
+        @category = Category.find_by(id: params[:id])
+        
+        if @category.nil?
+          head :not_found
+          return
+        else
+          @category.update(category_params)
+          redirect_to product_path(@category.id)
+        end
+    end 
+    
 
     private
 
     def category_param
-        return params.require(:category).permit(:name)
+        return params.require(:category).permit(:label)
     end
 
 
