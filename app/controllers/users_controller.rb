@@ -5,36 +5,36 @@ class UsersController < ApplicationController
     @categories = Category.all
     @products = Product.all
   end
-
+  
   def dashboard
     user_id = session[:user_id]
     item = params[:item] || 'products'
-
+    
     if item == 'products'
       @products = Product.where(user_id: 3) # change to user_id
     else 
       @categories = Category.all
     end
   end
-
+  
   def show
-      is_authenticated?
-      @user = User.find_by(id: params[:id])
-
-      render_404 unless @user
+    is_authenticated?
+    @user = User.find_by(id: params[:id])
+    
+    render_404 unless @user
   end
   
   def new
     @user = User.new
   end
-
+  
   def edit
     @user = @cart.user
   end
-
+  
   def update
     user = @cart.user
-
+    
     if user.update(user_params)
       flash[:status] = :success
       flash[:result_text] = "successfully updated payment information"
@@ -69,10 +69,10 @@ class UsersController < ApplicationController
     @categories = Category.all
     @products = Product.all
   end
-        
+  
   def create
     auth_hash = request.env["omniauth.auth"]
-
+    
     user = User.find_by(uid: auth_hash[:uid], provider: "github")
     if user
       # User was found in the database
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
       # User doesn't match anything in the DB
       # Attempt to create a new user
       user = User.build_from_github(auth_hash)
-
+      
       if user.save
         flash[:status] = :success
         flash[:result_text] = "Logged in as new user #{user.username}"
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
         return redirect_to root_path
       end
     end
-
+    
     # If we get here, we have a valid user instance
     session[:user_id] = user.id
     return redirect_to root_path
@@ -112,7 +112,7 @@ class UsersController < ApplicationController
   end
   
   private
-
+  
   def user_params
     params.require(:user).permit(:email, :cc_name, :cc_number, :cc_expiration, :cvv, :billing_zip, :street_address, :city, :state, :mailing_zip)
   end
@@ -127,3 +127,4 @@ class UsersController < ApplicationController
       return
     end
   end
+end
