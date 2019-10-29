@@ -17,7 +17,7 @@
 <% end %>
 
 <h4>Add a review</h4>
-<%= form_with model: @review do |f| %>
+<%= form_with model: @review, :url => {:action => "review"} do |f| %>
 
   <%= f.label :rating %>
   <%= f.text_field :rating %>
@@ -25,20 +25,16 @@
   <%= f.label :user_review %>
   <%= f.text_field :user_review %>
 
-  <%= f.label :product_id %>
-  <%= f.text_field @product.id %>
-
-
-  <%= f.submit "Submt review", method: :post %> 
+  <%= f.submit "Submt review" %> 
 <% end %>
 
 <h4>Reviews</h4>
+<% @product.reviews.each do |review| %>
 <ul>
   <li>
-    <% @product.reviews.each do |review| %>
       <%= review.rating %>
       <%= review.created_at %>
       <%= review.user_review %>
-    <% end %>
   </li>
 </ul>
+<% end %>

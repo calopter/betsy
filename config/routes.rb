@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get "/register", to: "users#register", as: "register"
   delete "/logout", to: "users#destroy", as: "logout"
 
-  resources :products
   resources :products do 
     member do 
       post 'review'

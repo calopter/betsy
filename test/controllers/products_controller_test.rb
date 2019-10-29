@@ -53,6 +53,9 @@ describe ProductsController do
       
         must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
       end
+
+      # it "renders if product was not saved" do 
+      # end 
     end 
     
 
@@ -99,6 +102,7 @@ describe ProductsController do
       it "deletes product from db and redirects" do
         perform_login(@user)
         # binding.pry
+        # delete remove_from_cart_path(order_items(:o_i_1))
         expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
         must_redirect_to products_path
       end 

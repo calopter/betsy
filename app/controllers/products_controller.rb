@@ -95,9 +95,9 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     else 
       if session[:user_id]
-        @product.reviews.create(review_params.merge({user_id: @login_user.id}))
+        @product.reviews.create(review_params.merge({user_id: @login_user.id}).merge({product_id: @product.id}))
       else 
-        @product.reviews.create(review_params.merge({user_id: nil}))
+        @product.reviews.create(review_params.merge({user_id: nil}).merge({product_id: @product.id}))
       end 
       flash[:message] = "Thanks for your review!"
       redirect_to product_path(@product.id)
@@ -116,7 +116,7 @@ class ProductsController < ApplicationController
     # The only reason why this would change is:
     #   1. If review requires different fields
     #   2. If your form view helper is a little different. Aka, it will look like this if you use form_with and a model, it will probably look different if you do something else
-    return params.require(:review).permit(:rating, :user_review, :product_id)
+    return params.require(:review).permit(:rating, :user_review)
   end
 
   def require_login
