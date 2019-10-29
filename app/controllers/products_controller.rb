@@ -3,7 +3,16 @@ class ProductsController < ApplicationController
   
   #users can browse all products
   def index
-    @products = Product.all
+    @users = User.all.order(:id)
+    @categories = Category.all
+
+    user_id = params[:query]
+   
+    if user_id
+      @products  = Product.where(user_id: user_id) # change to user_id
+    else
+      @products = Product.all
+    end
   end 
 
   #show each individual product page 

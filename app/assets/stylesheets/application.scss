@@ -24,4 +24,18 @@
 //     margin: 100px;
 //     background: coral;
 
-// }
+//
+
+.body {
+  background: #ececec;
+}
+.typewriter {
+  overflow: hidden;
+  color: blue;
+  //   border-right: 0.15em solid blue;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.1em;
+  //   -webkit-animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end 7;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end 7;
+}
