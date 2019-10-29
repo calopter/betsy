@@ -39,7 +39,6 @@ describe Order do
       order = Order.new
       order.user_id = nil
       order.status = "pending"
-      # binding.pry
       refute(order.valid?)      
     end
     

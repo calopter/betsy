@@ -7,7 +7,7 @@ describe ProductsController do
       get products_path
       must_respond_with :success
     end
-
+    
     it "even if there are no products saved but index succesfully shows" do
       Review.destroy_all
       OrderItem.destroy_all
@@ -82,7 +82,6 @@ describe ProductsController do
         
         patch product_path(products(:p_2).id), params: updated_product_data
         updated_product = Product.find_by(id: products(:p_2).id)
-        # binding.pry
         expect(updated_product.name).must_equal updated_product_data[:product][:name]
         expect(updated_product.price).must_equal updated_product_data[:product][:price]
         
@@ -103,7 +102,7 @@ describe ProductsController do
         expect { delete product_path(products(:p_1).id) }.must_differ "Product.count", -1
         must_redirect_to products_path
       end 
-
+      
       it "doesn't remove product if it's already removed or db is empty" do
         skip
         
