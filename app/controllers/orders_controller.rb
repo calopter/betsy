@@ -13,13 +13,18 @@ class OrdersController < ApplicationController
     
     if @cart.status = "pending"
       verification = User.verify_user_at_purchase(@cart.user)
-      if verification == "F"
+      if verification != nil
+        #there are validation errors from the user model
+        verification.each do |name, message|
+          flash[:name] = "#{name.to_s}"
+          flash[:message] = "#{message[0]}"
+        end
         redirect_to edit_user_path(@cart.user.id)
         return
-      else
-        purchase_confirmation
       end
     end
+    
+    purchase_confirmation
   end
   
   def purchase_confirmation

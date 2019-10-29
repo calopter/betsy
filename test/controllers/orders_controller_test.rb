@@ -56,7 +56,7 @@ describe OrdersController do
     end
     
     it "if a purchase is being made, validations needed are being run" do
-      
+      #checks with an empty email
       order = Order.find_by(id: session[:order_id])
       order.status = "pending"
       user = User.first
@@ -64,12 +64,39 @@ describe OrdersController do
       user.email = nil
       order.save
       user.save
-      
       get complete_purchase_path(order.id)
-      
       must_redirect_to root_path
-      
     end
+    
+    it "if a purchase is being made, validations needed are being run" do
+      #checks with an empty email
+      order = Order.find_by(id: session[:order_id])
+      order.status = "pending"
+      user = User.first
+      order.user_id = user.id
+      user.mailing_zip = nil
+      order.save
+      user.save
+      get complete_purchase_path(order.id)
+      must_redirect_to root_path
+    end
+    
+    
+    it "if a purchase is being made, with multiple invalid fields, multiple errors are caught by validations" do
+      #checks with an empty email
+      order = Order.find_by(id: session[:order_id])
+      order.status = "pending"
+      user = User.first
+      order.user_id = user.id
+      user.mailing_zip = nil
+      user.street_address = nil
+      order.save
+      user.save
+      get complete_purchase_path(order.id)
+      must_redirect_to root_path
+      #also checked manually in the console to ensure that @error_messages had more than 1 item in it. 
+    end
+    
     
   end
   
