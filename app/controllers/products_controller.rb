@@ -1,10 +1,19 @@
 class ProductsController < ApplicationController
   # require login for all the actions except the following...
-  # skip_before_action :require_login, only[:index, :show, :review]
+   before_action :require_login, except:[:index, :show, :review]
   
   #show all the products available for sale to ALL users
   def index
-    @products = Product.all
+    @users = User.all.order(:id)
+    @categories = Category.all
+
+    user_id = params[:query]
+   
+    if user_id
+      @products  = Product.where(user_id: user_id) # change to user_id
+    else
+      @products = Product.all
+    end
   end 
 
   #show each individual product page 
@@ -55,6 +64,7 @@ class ProductsController < ApplicationController
     end
   end 
 
+  
   #a merchant can destroy THEIR OWN product
   def destroy
     if session[:user_id]
