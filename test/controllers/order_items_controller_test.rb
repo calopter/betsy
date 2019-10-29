@@ -18,16 +18,15 @@ describe OrderItemsController do
       params = { order_item: { quantity: 2 } }
       
       expect{ patch update_cart_path(-1), params: params }.wont_change "OrderItem.count"
-      assert flash[:error]
+      assert flash[:messages]
       
       must_redirect_to cart_path    end
 
-    it 'sets flash and redirects for an existing order_item not in cart' do
+    it 'redirects for an existing order_item not in cart' do
       add_to_cart
       params = { order_item: { quantity: 2 } }
       
       expect{ patch update_cart_path(order_items(:o_i_1).id), params: params }.wont_change "OrderItem.count"
-      assert flash[:error]
       
       must_redirect_to cart_path
     end

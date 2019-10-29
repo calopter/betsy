@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
       flash[:status] = :success
       flash[:result_text] = "Added #{ order_item_params[:quantity] } #{ order_item.product.name } to cart"
     else
-      flash[:status] = :error
+      flash[:status] = :failure
       flash[:error] = "unable to add to cart"
       flash[:messages] = order_item.errors.messages
       return redirect_to product_path(product_id[:product_id])
