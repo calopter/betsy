@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
       flash[:messages] = order_item.errors.messages
       return redirect_to product_path(product_id[:product_id])
     end
-    return redirect_to product_path(product_id[:product_id])
+    return redirect_to products_path
   end
   
   private
