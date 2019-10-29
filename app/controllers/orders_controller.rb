@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   
   before_action :find_user, only:[:complete_purchase, :purchase_confirmation]
-  before_action :find_cart, only:[:complete_purchase, :purchase_confirmation]
+  before_action :find_cart, only:[:complete_purchase, :purchase_confirmation, :add]
   
   def complete_purchase
     if @cart.order_items.count == 0
@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
       verification = User.verify_user_at_purchase(@cart.user)
       if verification != nil
         #there are validation errors from the user model
-        flash[:status] = :error
+        flash[:status] = :failure
         flash[:messages] = verification
         redirect_to edit_user_path(@cart.user.id)
         return
@@ -26,7 +26,6 @@ class OrdersController < ApplicationController
   end
   
   def purchase_confirmation
-    
     @cart.status = "paid"
     
     @cart.date_time_order_purchased = DateTime.now
@@ -41,6 +40,9 @@ class OrdersController < ApplicationController
       product.save
     end
     @cart.save
+
+    new_cart = Order.create(user: @cart.user, status: "pending")
+    session[:order_id] = new_cart.id
   end
   
   def show
@@ -49,20 +51,24 @@ class OrdersController < ApplicationController
   end
   
   def add
-    order = get_cart
-    order_item = OrderItem.new(order_item_params.merge(order).merge(product_id))
+    order_item = @cart.order_items.find {|oi| oi.product.id.to_s == product_id[:product_id]}
+    if order_item
+      order_item.quantity += order_item_params[:quantity].to_i
+    else
+      order_item = OrderItem.new(order_item_params.merge({order_id: @cart.id}).merge(product_id))
+    end
 
     if order_item.save
-      session[:order_id] = order[:order_id]
+      session[:order_id] = @cart.id
       flash[:status] = :success
-      flash[:result_text] = "Added #{ order_item.quantity } #{ order_item.product.name } to cart"
+      flash[:result_text] = "Added #{ order_item_params[:quantity] } #{ order_item.product.name } to cart"
     else
-      flash[:status] = :error
+      flash[:status] = :failure
       flash[:error] = "unable to add to cart"
       flash[:messages] = order_item.errors.messages
       return redirect_to product_path(product_id[:product_id])
     end
-    return redirect_to product_path(product_id[:product_id])
+    return redirect_to products_path
   end
   
   private
