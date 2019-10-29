@@ -13,7 +13,9 @@ class OrdersController < ApplicationController
     if @cart.status = "pending"
       verification = User.verify_user_at_purchase(@cart.user)
       if verification != nil
-        redirect_to root_path
+        @error_messages = verification
+        #hopefully this allows error messages to be seen by a View at some time later. 
+        binding.pry
         return
       end
     end
