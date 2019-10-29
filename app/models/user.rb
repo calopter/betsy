@@ -9,28 +9,27 @@ class User < ApplicationRecord
   validates :cc_expiration, presence: true, on: :verify_user_at_purchase
   validates :cvv, presence: true, on: :verify_user_at_purchase
   validates :billing_zip, presence: true, on: :verify_user_at_purchase
-  validates :steet_address, presence: true, on: :verify_user_at_purchase
+  # validates :steet_address, presence: true, on: :verify_user_at_purchase
   validates :city, presence: true, on: :verify_user_at_purchase
   validates :state, presence: true, on: :verify_user_at_purchase
   validates :mailing_zip, presence: true, on: :verify_user_at_purchase
-  validates :email, presence: true, on: :verify_user_at_purchase
-  validates :email, presence: true, on: :verify_user_at_purchase
-  validates :email, presence: true, on: :verify_user_at_purchase
-
-
-
-
-
-
-
-
-
+  
   def self.verify_user_at_purchase(user)
     validity = user.valid?(:verify_user_at_purchase)
-    if validity == false
-      return "F"
+    messages = user.errors.messages
+    # This is eating validation errors, possibly. Connects to Order Controller complete_purchase action. Tested there. 
+    if messages.any? 
+      return messages
+    else
+      return
     end
   end
+
+
+
+
+
+
   
   def order_count
     orders.group_by(&:status).transform_values(&:count)
