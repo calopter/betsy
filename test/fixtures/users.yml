@@ -40,7 +40,7 @@ u_2:
   mailing_zip: 96834
   cc_name: Wheeled Kane
   cc_number: 6011393976149255
-  cc_expiration: 0521
+  cc_expiration: 1121
   cvv: 666
   billing_zip: 90892
   provider: github
@@ -55,7 +55,7 @@ u_3:
   mailing_zip: 34227
   cc_name: Hello Cat
   cc_number: 5599370810560063
-  cc_expiration: 0722
+  cc_expiration: 0821
   cvv: 777
   billing_zip: 08880
   provider: github

@@ -5,7 +5,7 @@ describe User do
     @user = User.create(username: 'john', email: 'john@example.com')#users(:valid)
     # @user.save!
   end
-
+  
   describe 'relations' do
     it 'can have products' do
       expect(@user).must_respond_to :products
@@ -116,7 +116,7 @@ describe User do
       username1 = "testusername"
       email = 'test@email.com'
       user1 = User.new(username: username1, email: email)
-
+      
       # This must go through, so we use create!
       user1.save!
       username2 = "test2username"
