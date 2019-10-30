@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   before_action :require_login, except: [:index, :show, :review]
   
-  #users can browse all products
   def index
     @users = User.all.order(:id)
     @categories = Category.all
@@ -10,6 +9,10 @@ class ProductsController < ApplicationController
    
     if @merchant_id
       @products  = Product.where(user_id: @merchant_id)
+    user_id = params[:query]
+
+    if user_id
+      @products  = Product.where(user_id: user_id)
     else
       @products = Product.all
     end
@@ -22,7 +25,6 @@ class ProductsController < ApplicationController
     
   end 
 
-  #show each individual product page 
   def show
     product_id = params[:id].to_i
     @product = Product.find_by(id:params[:id])
@@ -32,13 +34,11 @@ class ProductsController < ApplicationController
     @order_item = OrderItem.new(order_id: get_cart[:order_id])
   end 
 
-  #bring up new form for merchant to add a product
   def new
     @product = Product.new
     
   end 
 
-  #a merchant can add a new product
   def create
     @product = Product.new(product_params.merge({user_id: @login_user.id}))
     
@@ -50,7 +50,6 @@ class ProductsController < ApplicationController
     end
   end 
 
-  #pull up edit form for merchant to edit their product
   def edit
     @product = Product.find_by(id: params[:id])
     
@@ -62,7 +61,6 @@ class ProductsController < ApplicationController
     end
   end 
 
-  #a merchant can update their own product
   def update
     @product = Product.find_by(id: params[:id])
     
@@ -79,8 +77,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # STILL WORKING ON IT - MOMO
-  # any user can rate a product 
   def review
     # Assuming this is true:
     #   - We get into this products#rate_product action by submitting a form
@@ -91,15 +87,17 @@ class ProductsController < ApplicationController
     #      Do we use something like review_params?
     #      What does review_params look like?
     @product = Product.find_by(id: params[:id])
+    # @product.reviews << Review.create()
 
     if session[:user_id] == @product.user_id 
       flash[:message] = "You can't review your own product"
       redirect_to product_path(@product.id)
     else 
       if session[:user_id]
-        @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
+        @product.reviews.create!(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
       else 
-        @product.reviews.create(review_params.merge({user_id: nil, product_id: @product.id}))
+        # raise
+        @product.reviews.create!(review_params.merge({user_id: nil, product_id: @product.id}))
       end 
       flash[:message] = "Thanks for your review!"
       redirect_to product_path(@product.id)
@@ -112,13 +110,12 @@ class ProductsController < ApplicationController
     return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :retired)
   end
 
-  #STILL WORKING ON THIS -MOMO
   def review_params
     # By virtue of using a form in Rails, we DEF will have a strong_params method like this (aka review_params method)
     # The only reason why this would change is:
     #   1. If review requires different fields
     #   2. If your form view helper is a little different. Aka, it will look like this if you use form_with and a model, it will probably look different if you do something else
-    return params.require(:review).permit(:rating, :user_review)
+    return params.permit(:rating, :user_review)
   end
 
   def require_login
