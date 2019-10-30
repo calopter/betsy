@@ -68,11 +68,13 @@ class ProductsController < ApplicationController
   def review
     @product = Product.find_by(id: params[:id])
 
-    if session[:user_id] == @product.user_id 
+    if session[:user_id] == @product.user_id && session[:user_id] == @login_user.id
       flash[:message] = "You can't review your own product"
       redirect_to product_path(@product.id)
-    elsif session[:user_id].nil?
-      @product.reviews.create(review_params.merge({user_id: 0, product_id: @product.id}))
+    elsif session[:user_id] != @login_user.id
+      @product.reviews.create(review_params.merge({user_id: session[:user_id], product_id: @product.id}))
+      flash[:message] = "Thanks for your review!"
+      redirect_to product_path(@product.id)
     else 
       @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
       flash[:message] = "Thanks for your review!"
