@@ -36,8 +36,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :products do 
     member do 
-      #have reviews controller 
-      # resource :reviews, only: [:new, csreate]
       post 'review'
     end 
   end
