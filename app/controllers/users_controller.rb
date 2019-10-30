@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     item = params[:item] || 'products'
     
     if item == 'products'
-      @products = Product.where(user_id: 3) # change to user_id
+      @products = Product.where(user_id: user_id) # change to user_id
     else 
       @categories = Category.all
     end

@@ -6,13 +6,20 @@ class ProductsController < ApplicationController
     @users = User.all.order(:id)
     @categories = Category.all
 
-    user_id = params[:query]
+    @merchant_id = params[:merchantId]
    
-    if user_id
-      @products  = Product.where(user_id: user_id) # change to user_id
+    if @merchant_id
+      @products  = Product.where(user_id: @merchant_id)
     else
       @products = Product.all
     end
+
+    @category_id = params[:categoryId]
+    if @category_id
+      @products = Product.joins(:categories).where(:categories => {id: @category_id})
+    end
+
+    
   end 
 
   #show each individual product page 
@@ -28,6 +35,7 @@ class ProductsController < ApplicationController
   #bring up new form for merchant to add a product
   def new
     @product = Product.new
+    
   end 
 
   #a merchant can add a new product
