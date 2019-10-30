@@ -1,36 +1,47 @@
-<h2>Show page</h2>
+<main>
+  <section class="product-top">
+    <%= image_tag @product.photo_url, alt: @product.photo_url %>
+    <section id="right-options-info">
+      <section id="product-info">
+        <h3><%= @product.name %></h3>
+        <%= User.find_by(id: @product.user_id).username %>
+        <%= @product.price %>
+        <%= @product.description %>
+      </section>
+      <section id="add-to-cart">
+        <strong>Add to cart</strong>
+        <%= form_with model: @order_item, url: add_to_cart_path(@product.id) do |f| %>  
+          <%= f.label :quantity %>
+          <%= f.text_field :quantity %>
+          <%= f.submit "Add to Cart" %>
+        <% end %>
+      </section>
+    </section>
+  </section>
 
-<%= @product.name %>
-<%= image_tag @product.photo_url, alt: @product.photo_url %>
-<%= @product.description %>
-<%= @product.price %>
 
-<h4>Add to cart</h4>
-<%= form_with model: @order_item, url: add_to_cart_path(@product.id) do |f| %>  
-  <%= f.label :quantity %>
-  <%= f.text_field :quantity %>
-  <%= f.submit "Add to Cart" %>
-<% end %>
+  <section class="reviews">
+    <h4>Reviews</h4>
+    <%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
 
-<h4>Add a review</h4>
-<%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
+      <%= f.label :rating %>
+      <%= f.text_field :rating %>
 
-  <%= f.label :rating %>
-  <%= f.text_field :rating %>
+      <%= f.label :user_review %>
+      <%= f.text_field :user_review %>
 
-  <%= f.label :user_review %>
-  <%= f.text_field :user_review %>
+      <%= f.submit "Submt review" %> 
+    <% end %>
 
-  <%= f.submit "Submt review" %> 
-<% end %>
-
-<h4>Reviews</h4>
-<% @product.reviews.each do |review| %>
-<ul>
-  <li>
-      <%= review.rating %>
-      <%= review.created_at %>
-      <%= review.user_review %>
-  </li>
-</ul>
-<% end %>
+    <% @product.reviews.each do |review| %>
+    <ul>
+      <li>
+        <%= review.rating %>
+        <%= review.created_at %>
+        <%= review.user_review %>
+      </li>
+    </ul>
+    <% end %>
+  </section>
+  
+</main>
