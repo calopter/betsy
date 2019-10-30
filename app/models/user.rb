@@ -24,6 +24,14 @@ class User < ApplicationRecord
       return
     end
   end
+
+  def address
+    street_address
+  end
+
+  def show_cc
+    cc_number.to_s[-4..-1]
+  end
   
   def order_count
     orders.group_by(&:status).transform_values(&:count)

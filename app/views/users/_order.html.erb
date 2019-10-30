@@ -1,6 +1,6 @@
 <article>
   <header>
-    <h6>Order <%= (order).id %></h6>
+    <h6><%= link_to "Order #{ (order).id }", order_path((order).id) %></h6>
     <p>status: <%= (order).status %></p>
   </header>
   <table>
