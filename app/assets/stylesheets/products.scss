@@ -10,18 +10,20 @@ main {
 }
 
 img {
-  width: 50%;
+  width: 100%;
 }
 
 .product-top {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .product-info {
-  margin: 3rem 0;
+  margin: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;

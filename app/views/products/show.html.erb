@@ -1,12 +1,15 @@
 <main>
   <section class="product-top">
-    <%= image_tag @product.photo_url, alt: @product.photo_url %>
+    <section>
+      <%= image_tag @product.photo_url, alt: @product.photo_url %>
+    </section>
     <section id="right-options-info">
       <section id="product-info">
         <h3><%= @product.name %></h3>
-        <%= User.find_by(id: @product.user_id).username %>
-        <%= @product.price %>
-        <%= @product.description %>
+        <p>Sold by: <%= User.find_by(id: @product.user_id).username %></p>
+        <p>Price: $<%= @product.price %></p>
+        <p>Description: <%= @product.description %></p>
+        
       </section>
       <section id="add-to-cart">
         <strong>Add to cart</strong>
