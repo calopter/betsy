@@ -44,8 +44,12 @@ class ProductsController < ApplicationController
     
     if @product.save
       redirect_to product_path(@product.id)
+      flash[:status] = :success
+      flash[:result_text] = "New product added."
       return
     else
+      flash[:status] = :failure
+      flash[:result_text] = "New product added."
       render new_product_path
     end
   end 
@@ -56,7 +60,8 @@ class ProductsController < ApplicationController
     if @product.nil?
       head :not_found
     elsif @product.user_id != @login_user.id
-      flash[:message] = "You do not have permission to edit this product."
+      flash[:status] = :failure
+      flash[:result_text] = "You do not have permission to edit this product."
       redirect_to product_path(@product.id)
     end
   end 
@@ -68,11 +73,14 @@ class ProductsController < ApplicationController
       head :not_found
       return
     elsif @product.user_id != @login_user.id
-      flash[:message] = "You do not have permission to update this product."
+      flash[:status] = :failure
+      flash[:result_text] = "You do not have permission to update this product."
       redirect_to product_path(@product.id)
       return 
     else
       @product.update(product_params)
+      flash[:status] = :success
+      flash[:result_text] = "Product updated."
       redirect_to product_path(@product.id)
     end
   end
@@ -81,15 +89,18 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
 
     if session[:user_id] == @product.user_id 
-      flash[:message] = "You can't review your own product"
+      flash[:status] = :failure
+      flash[:result_text] = "You can't review your own product"
       redirect_to product_path(@product.id)
     elsif session[:user_id].nil?
       @product.reviews.create(review_params.merge({user_id: 0, product_id: @product.id}))
-      flash[:message] = "Thanks for your review!"
+      flash[:status] = :success
+      flash[:result_text] = "Thanks for your review!"
       redirect_to product_path(@product.id)
     else 
       @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
-      flash[:message] = "Thanks for your review!"
+      flash[:status] = :success
+      flash[:result_text] = "Thanks for your review!"
       redirect_to product_path(@product.id)
     end 
   end 
@@ -106,7 +117,8 @@ class ProductsController < ApplicationController
 
   def require_login
     if find_user.nil?
-      flash[:error] = "You must be logged in to view this section"
+      flash[:status] = :failure
+      flash[:error] = "You must be logged in to view this."
       redirect_to products_path
     end 
   end 
