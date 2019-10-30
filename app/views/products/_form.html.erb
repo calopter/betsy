@@ -1,33 +1,25 @@
 <% if @product.errors.any? %>
   <p>Please fix the following...</p>
   <ul>
-  <% @product.errors.each do |error, msg|%>
-    <li><%= error %>: <%= msg %></li>
-  <% end %>
+    <% @product.errors.each do |error, msg|%>
+      <li><%= error %>: <%= msg %></li>
+    <% end %>
   </ul>
 <% end %>
-
-
 <%= form_with model: @product do |f| %>
-
   <%= f.label :name %>
   <%= f.text_field :name %>
-
+  <%= f.label :category %>
+  <%= f.select :category, [['Shoes'], ['Clothing'], ['Household'], ['Clothing']]%>
   <%= f.label :stock %>
   <%= f.text_field :stock %>
-
-
   <%= f.label :price %>
   <%= f.text_field :price %>
-
   <%= f.label :retired %>
   <%= f.select :retired, [['Active'], ['Retired']]%>
-
   <%= f.label :description %>
   <%= f.text_area :description %>
-
   <%= f.label :photo_url %>
   <%= f.text_field :photo_url %>
-
-  <%= f.submit submit_button_label%> 
+  <%= f.submit submit_button_label%>
 <% end %>

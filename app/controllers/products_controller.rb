@@ -5,13 +5,25 @@ class ProductsController < ApplicationController
     @users = User.all.order(:id)
     @categories = Category.all
 
-    user_id = params[:query]
+    @merchant_id = params[:merchantId]
+
+    if @merchant_id
+      @products  = Product.where(user_id: @merchant_id)
+      user_id = params[:query]
+    end 
 
     if user_id
       @products  = Product.where(user_id: user_id)
     else
       @products = Product.all
     end
+
+    @category_id = params[:categoryId]
+    if @category_id
+      @products = Product.joins(:categories).where(:categories => {id: @category_id})
+    end
+
+    
   end 
 
   def show
@@ -25,6 +37,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    
   end 
 
   def create
@@ -66,27 +79,17 @@ class ProductsController < ApplicationController
   end
 
   def review
-    # Assuming this is true:
-    #   - We get into this products#rate_product action by submitting a form
-    # With questions about:
-    #   - What does the form look like? Does it use form_with and a model? Does it use form_with and no model? Does it use a different view helper to create the form?
-    # The big question for this action is...
-    #   How do we create a Review on product with the right information from the form?
-    #      Do we use something like review_params?
-    #      What does review_params look like?
     @product = Product.find_by(id: params[:id])
-    # @product.reviews << Review.create()
 
     if session[:user_id] == @product.user_id 
       flash[:message] = "You can't review your own product"
       redirect_to product_path(@product.id)
+    elsif session[:user_id].nil?
+      @product.reviews.create(review_params.merge({user_id: 0, product_id: @product.id}))
+      flash[:message] = "Thanks for your review!"
+      redirect_to product_path(@product.id)
     else 
-      if session[:user_id]
-        @product.reviews.create!(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
-      else 
-        # raise
-        @product.reviews.create!(review_params.merge({user_id: nil, product_id: @product.id}))
-      end 
+      @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
       flash[:message] = "Thanks for your review!"
       redirect_to product_path(@product.id)
     end 
@@ -99,10 +102,6 @@ class ProductsController < ApplicationController
   end
 
   def review_params
-    # By virtue of using a form in Rails, we DEF will have a strong_params method like this (aka review_params method)
-    # The only reason why this would change is:
-    #   1. If review requires different fields
-    #   2. If your form view helper is a little different. Aka, it will look like this if you use form_with and a model, it will probably look different if you do something else
     return params.permit(:rating, :user_review)
   end
 
