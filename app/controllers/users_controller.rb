@@ -21,7 +21,6 @@ class UsersController < ApplicationController
 
   def fulfillment
     @user = find_user
-    # binding.pry
   end
   
   def show

@@ -42,6 +42,10 @@ class User < ApplicationRecord
   def orders_counts
     items.map(&:order).uniq.group_by(&:status).transform_values(&:count)
   end
+
+  def my_orders
+    items.group_by(&:order)
+  end
   
   def self.build_from_github(auth_hash)
     user = User.new

@@ -41,4 +41,10 @@
       </tbody>
     </table>  <section>
   </section>
+  <section>
+    <h4>Orders</h4>
+    <% @user.my_orders.each do |order, order_items| %>
+      <%= render 'users/order', order: order, order_items: order_items %>
+    <% end %>
+  </section>
 </main>

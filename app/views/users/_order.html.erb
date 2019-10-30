@@ -1,0 +1,26 @@
+<article>
+  <header>
+    <h6>Order <%= (order).id %></h6>
+    <p>status: <%= (order).status %></p>
+  </header>
+  <table>
+    <theader>
+      <tr class="table-headers">
+        <td>Product</td>
+        <td>Quantity</td>
+        <td>Subtotal</td>
+        <td></td>
+      </tr>
+    </theader>
+    <tbody>
+      <% (order_items).each do |oi| %>
+        <tr>
+          <td><%= link_to oi.product.name, product_path(oi.product.id) %></td>
+          <td><%= oi.quantity %></td>
+          <td>$<%= oi.total %></td>
+          <td>mark shipped</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</article>
