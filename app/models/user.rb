@@ -30,13 +30,17 @@ class User < ApplicationRecord
   end
   
   def revenue
-    orders.map(&:revenue).sum
+    sold_items.map(&:total).sum
   end
   
   def revenues
-    orders.group_by(&:status).transform_values do |orders|
-      orders.map(&:revenue).sum
+    items.group_by{|oi| oi.order.status}.transform_values do |ois|
+      ois.map(&:total).sum
     end
+  end
+  
+  def orders_counts
+    items.map(&:order).uniq.group_by(&:status).transform_values(&:count)
   end
   
   def self.build_from_github(auth_hash)
@@ -46,5 +50,14 @@ class User < ApplicationRecord
     user.username = auth_hash["info"]["nickname"]
     user.email = auth_hash["info"]["email"]
     return user
+  end
+
+  private
+  def items
+    OrderItem.all.select {|oi| oi.product.user.id == self.id}
+  end
+  
+  def sold_items
+    OrderItem.all.select {|oi| oi.product.user.id == self.id && oi.order.status == "paid"}
   end
 end
