@@ -6,10 +6,11 @@ class ProductsController < ApplicationController
     @categories = Category.all
 
     @merchant_id = params[:merchantId]
-   
+
     if @merchant_id
       @products  = Product.where(user_id: @merchant_id)
-    user_id = params[:query]
+      user_id = params[:query]
+    end 
 
     if user_id
       @products  = Product.where(user_id: user_id)
