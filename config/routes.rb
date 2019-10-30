@@ -17,11 +17,12 @@ Rails.application.routes.draw do
 
   get "/auth/:provider/callback", to: "users#create", as: "auth_callback"
 
+  resources :category
   # create a path for Category
   # resources :category
-  get "/category/new", to: "category#new", as: "new_category"
+  # get "/category/new", to: "category#new", as: "new_category"
   post "/category/new", to: "category#create", as: "categories"
-  get "/category/edit", to: "category#edit", as: "edit_category"
+  # get "/category/edit", to: "category#edit", as: "edit_category"
   
   resources :users, only: [:show, :register, :edit, :update]
   
@@ -33,7 +34,6 @@ Rails.application.routes.draw do
   get "/dashboard", to: "users#dashboard", as: "dashboard"
 
   resources :orders
-
   resources :products do 
     member do 
       #have reviews controller 

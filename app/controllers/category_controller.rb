@@ -27,6 +27,7 @@ class CategoryController < ApplicationController
 
     def show
     end
+    
     def edit
         @category = Category.find_by(id: params[:id])
         

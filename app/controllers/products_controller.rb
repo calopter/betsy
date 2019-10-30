@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
     @users = User.all.order(:id)
     @categories = Category.all
 
+    @merchant_id = params[:merchantId]
+   
+    if @merchant_id
+      @products  = Product.where(user_id: @merchant_id)
     user_id = params[:query]
 
     if user_id
@@ -12,6 +16,13 @@ class ProductsController < ApplicationController
     else
       @products = Product.all
     end
+
+    @category_id = params[:categoryId]
+    if @category_id
+      @products = Product.joins(:categories).where(:categories => {id: @category_id})
+    end
+
+    
   end 
 
   def show
@@ -25,6 +36,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    
   end 
 
   def create
