@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   post 'products/:product_id/add', to: 'orders#add', as: 'add_to_cart'
   
-  get 'cart', to: 'orders#show', as: 'cart'
+  get 'cart', to: 'orders#cart', as: 'cart'
 
   patch 'cart/:id', to: 'order_items#update', as: 'update_cart'
   

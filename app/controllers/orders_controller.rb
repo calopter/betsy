@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
     session[:order_id] = new_cart.id
   end
   
-  def show
+  def cart
     @order = Order.find_by(id: get_cart[:order_id])
     session[:order_id] = @order.id
   end
