@@ -35,6 +35,9 @@ puts "Loading raw usesrs data from #{USERS_FILE}"
 
 user_failures = []
 
+anonymous_user = User.new(id: 0, username: "Anonymous", email: nil, street_address: nil, city: nil, mailing_zip: nil, cc_name: nil, cc_number: nil, cc_expiration: nil, cvv: nil, billing_zip: nil)
+anonymous_user.save
+
 CSV.foreach(USERS_FILE, :headers => true) do |row|
   user = User.new
   user.username = row['username']
