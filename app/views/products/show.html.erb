@@ -34,18 +34,18 @@
     <section id="review-form">
       <%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
 
-        <section>
+        <section class="form-group">
           <%= f.label :rating %>
-          <%= f.select :rating, [[5], [4], [3], [2], [1]]%>
+          <%= f.select :rating, [[5], [4], [3], [2], [1]], class:"form-control"%>
         </section>
 
-        <section>
+        <section class="form-group">
           <%= f.label :user_review %>
-          <%= f.text_area :user_review %>
+          <%= f.text_area :user_review, class:"form-control" %>
         </section>
         
-        <section>
-          <%= f.submit "Submt review" %> 
+        <section class="form-group">
+          <%= f.submit "Submt review", class:"btn btn-primary" %> 
         </section>
         
       <% end %>
