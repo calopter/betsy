@@ -41,6 +41,10 @@ img {
 
 .reviews {
   width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
 }
 
 .reviews h4 {
