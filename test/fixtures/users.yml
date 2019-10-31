@@ -15,21 +15,21 @@
 # need to changes for my test work
 
 # =============================================  
-u_0:
-  id: 0
-  username: guest
-  email: mrtea@gmail.com
-  street_address: 2432  Duck Creek Road
-  city: Platteville
-  state: CO
-  mailing_zip: 98112
-  cc_name: Tea Soak
-  cc_number: 358682578002068
-  cc_expiration: 1021
-  cvv: 345
-  billing_zip: 80651
-  provider: github
-  uid: 123
+# u_0:
+#   # id: 0
+#   username: guest
+#   email: mrtea@gmail.com
+#   street_address: 2432  Duck Creek Road
+#   city: Platteville
+#   state: CO
+#   mailing_zip: 98112
+#   cc_name: Tea Soak
+#   cc_number: 358682578002068
+#   cc_expiration: 1021
+#   cvv: 345
+#   billing_zip: 80651
+#   provider: github
+#   uid: 123
 
 u_1:
   username: mr_tea
