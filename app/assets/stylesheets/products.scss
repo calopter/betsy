@@ -59,6 +59,19 @@ img {
   align-items: center;
 }
 
+#review-form .form-group {
+  display: flex;
+  justify-content: center;
+}
+
+#review-form textarea {
+  width: 100%;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+
 .reviews ul>li {
   list-style: none;
   padding-top: 1rem;
