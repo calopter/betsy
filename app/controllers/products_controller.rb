@@ -94,11 +94,13 @@ class ProductsController < ApplicationController
       redirect_to product_path(@product.id)
     elsif session[:user_id].nil?
       @product.reviews.create(review_params.merge({user_id: 0, product_id: @product.id}))
+
       flash[:status] = :success
       flash[:result_text] = "Thanks for your review!"
       redirect_to product_path(@product.id)
     else 
       @product.reviews.create(review_params.merge({user_id: @login_user.id, product_id: @product.id}))
+
       flash[:status] = :success
       flash[:result_text] = "Thanks for your review!"
       redirect_to product_path(@product.id)
