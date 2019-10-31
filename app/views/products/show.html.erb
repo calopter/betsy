@@ -30,14 +30,15 @@
       <%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
 
         <%= f.label :rating %>
-        <%= f.select :rating, [[5], [4], [3], [2], [1]] %>
+        <%= f.select :rating, [[5], [4], [3], [2], [1]]%>
 
         <%= f.label :user_review %>
-        <%= f.text_field :user_review %>
+        <%= f.text_area :user_review %>
 
         <%= f.submit "Submt review" %> 
       <% end %>
     </section>
+
     <section id="user-reviews">
       <% if @product.reviews.count == 0 %>
         <p>There are no review for this product (yet)...</p>
@@ -48,7 +49,7 @@
               <p class="stars"><%= review.rating %> Star(s)
               <small><%= review.created_at %></small></p>
               <p><%= review.user_review %></p>
-              <hr>
+              
             </li>
           </ul>
           <% end %>
