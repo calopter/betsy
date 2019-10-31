@@ -10,6 +10,13 @@ class ProductsController < ApplicationController
    
     if @merchant_id
       @products  = Product.where(user_id: @merchant_id)
+    #++++++++++++++++++++++++++++++++++++++++++++++
+    user_id = params[:query]
+
+    elsif user_id
+        @products  = Product.where(user_id: user_id)
+
+    #++++++++++++++++++++++++++++++++++++++++++++++
     else
       @products = Product.all
     end
@@ -18,8 +25,6 @@ class ProductsController < ApplicationController
     if @category_id
       @products = Product.joins(:categories).where(:categories => {id: @category_id})
     end
-
-    
   end 
 
   #show each individual product page 
@@ -43,7 +48,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params.merge({user_id: @login_user.id}))
     
     if @product.save
-      redirect_to product_path(@product.id)
+      redirect_to dashboard_path(item: 'products')
       return
     else
       render new_product_path
@@ -53,6 +58,8 @@ class ProductsController < ApplicationController
   #pull up edit form for merchant to edit their product
   def edit
     @product = Product.find_by(id: params[:id])
+    @categories = Category.select(:label).map(&:label)
+
     
     if @product.nil?
       head :not_found
@@ -75,7 +82,7 @@ class ProductsController < ApplicationController
       return 
     else
       @product.update(product_params)
-      redirect_to product_path(@product.id)
+      redirect_to dashboard_path(item: 'products')
     end
   end
 
@@ -109,7 +116,7 @@ class ProductsController < ApplicationController
   private
   
   def product_params
-    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :retired)
+    return params.require(:product).permit(:stock, :name, :description, :photo_url, :price, :retired, :category_ids => [])
   end
 
   #STILL WORKING ON THIS -MOMO

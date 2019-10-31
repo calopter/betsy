@@ -16,12 +16,12 @@ class CategoryController < ApplicationController
             flash[:status] = :success
             flash[:result_text] = "Successfully added a new category"
 
-            redirect_to dashboard_path
+            redirect_to dashboard_path(item: 'categories')
         else
             flash[:status] = :failure
             flash[:result_text] = "Failed to add a new category"
-
-            redirect_to dashboard_path
+            render new_category_path
+            # redirect_to dashboard_path(item: 'categories')
         end
     end
 
@@ -43,8 +43,8 @@ class CategoryController < ApplicationController
           head :not_found
           return
         else
-          @category.update(category_params)
-          redirect_to product_path(@category.id)
+          @category.update(category_param)
+          redirect_to dashboard_path(item: "categories")
         end
     end 
     
