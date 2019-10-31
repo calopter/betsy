@@ -2,6 +2,12 @@ class OrdersController < ApplicationController
   
   before_action :find_user, only:[:complete_purchase, :purchase_confirmation]
   before_action :find_cart, only:[:complete_purchase, :purchase_confirmation, :add]
+
+  def show
+    #assert logged in
+    @order = Order.find_by(id: params[:id])
+    @user = @order&.user
+  end
   
   def complete_purchase
     if @cart.order_items.count == 0
@@ -45,7 +51,7 @@ class OrdersController < ApplicationController
     session[:order_id] = new_cart.id
   end
   
-  def show
+  def cart
     @order = Order.find_by(id: get_cart[:order_id])
     session[:order_id] = @order.id
   end

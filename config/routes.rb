@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   post 'products/:product_id/add', to: 'orders#add', as: 'add_to_cart'
   
-  get 'cart', to: 'orders#show', as: 'cart'
+  get 'cart', to: 'orders#cart', as: 'cart'
 
   patch 'cart/:id', to: 'order_items#update', as: 'update_cart'
   
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "users#destroy", as: "logout"
 
   get "/dashboard", to: "users#dashboard", as: "dashboard"
+  get 'fulfillment', to: 'users#fulfillment', as: 'fulfillment'
 
   resources :orders
   resources :products do 
