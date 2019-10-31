@@ -2,13 +2,20 @@ class OrderItemsController < ApplicationController
   def update
     order_item = OrderItem.find_by(id: params[:id])
     
-    if find_cart.order_items.include?(order_item)
+    if order_item
       order_item.quantity = order_item_params[:quantity]
-      order_item.save
-      flash[:success] = "updated #{ order_item.product.name } quantity"
-      redirect_to cart_path
+      if order_item.save
+        flash[:status] = :success
+        flash[:result_text] = "updated #{ order_item.product.name } quantity"
+        redirect_to cart_path
+      else
+        flash[:status] = :failure
+        flash[:messages] = order_item.errors.messages
+        redirect_to cart_path
+      end
     else
-      flash[:error] = "unable to update quantity"
+      flash[:status] = :failure
+      flash[:messages] = { order_item: "not found" }
       redirect_to cart_path
     end
   end
