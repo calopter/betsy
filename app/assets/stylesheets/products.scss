@@ -53,6 +53,9 @@ img {
 
 #review-form {
   margin: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .reviews ul>li {
