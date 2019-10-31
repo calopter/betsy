@@ -40,7 +40,7 @@
     </section>
     <section id="user-reviews">
       <% if @product.reviews.count == 0 %>
-        <p>There are no review for this product (yet).</p>
+        <p>There are no review for this product (yet)...</p>
         <%else %>
           <% @product.reviews.each do |review| %>
           <ul>
