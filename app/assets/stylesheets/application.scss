@@ -17,6 +17,18 @@
 /* Import scss content */
 @import "**/*";
 
+body {
+  padding-top: 65px;
+  background: #efefef;
+}
+.sidebar-sticky {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 70px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 // * {
 //     background: coral;
 // }
@@ -35,13 +47,13 @@ img {
   height: 100%;
 }
 
-h1 {
-  font-family: Trattatello, fantasy;
-}
+// h1 {
+//   font-family: Trattatello, fantasy;
+// }
 
 .nav-item .nav-link {
-  font-family: Trattatello;
-  color: blueviolet;
+  // font-family: Trattatello;
+  // color: blueviolet;
 }
 .typewriter {
   // overflow: hidden;
@@ -58,4 +70,16 @@ h1 {
 .card-img-top {
   height: 180px !important;
   object-fit: cover;
+}
+
+.bg-primary,
+.btn-primary {
+  background: #feb236;
+  border-color: #feb236;
+  color: #000;
+}
+.btn-primary:hover {
+  background: #c68300;
+  border-color: #c68300;
+  color: #fff;
 }
