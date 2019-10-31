@@ -6,9 +6,9 @@
     <section id="right-options-info">
       <section id="product-info">
         <h3><%= @product.name %></h3>
-        <p>Sold by: <%= User.find_by(id: @product.user_id).username %></p>
-        <p>Price: $<%= @product.price %></p>
-        <p>Description: <%= @product.description %></p>
+        <p><strong>Sold by: </strong><%= User.find_by(id: @product.user_id).username %></p>
+        <p><strong>Price: </strong>$<%= @product.price %></p>
+        <p><strong>Description: </strong><%= @product.description %></p>
         
       </section>
       <section id="add-to-cart">
