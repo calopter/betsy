@@ -21,7 +21,7 @@ class CategoryController < ApplicationController
             flash[:status] = :failure
             flash[:result_text] = "Failed to add a new category"
             render new_category_path
-            # redirect_to dashboard_path(item: 'categories')
+           
         end
     end
 
