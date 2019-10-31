@@ -1,21 +1,24 @@
-<div class="row mt-2">
-  <div class="col-lg-3">
-    <section class="mb-5 card side-nav">
-      <div class="card-header">
-        Merchants
-      </div>
-      <% @users.each do |user|%>
-        <%= link_to user.username, products_path(merchantId: user.id), class:"list-group-item list-group-item-action #{user.id == @merchant_id.to_i ? 'active' : ''}" %>
-      <% end %>
-      <div class="card-header">
-        Categories
-      </div>
-      <% @categories.each do |category|%>
-        <%= link_to category.label, products_path(categoryId: category.id), class:"list-group-item list-group-item-action #{category.id == @category_id.to_i ? 'active' : ''}"  %>
-      <% end %>
-    </section>
-  </div>
-  <div class="col-lg-9">
+<div class="row">
+  <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="h5"><i class="fas fa-user-friends mr-2 text-secondary"></i>Merchants</li>
+        <% @users.each do |user|%>
+          <li class="nav-item">
+            <%= link_to user.username, products_path(merchantId: user.id), class:"nav-link text-secondary #{user.id == @merchant_id.to_i ? 'active' : ''}" %>
+          <% end %>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li class="h5"><i class="fas fa-tags mr-2 text-secondary"></i>Categories</li>
+        <li class="nav-item">
+          <% @categories.each do |category|%>
+            <%= link_to category.label, products_path(categoryId: category.id), class:"nav-link text-secondary #{category.id == @category_id.to_i ? 'active' : ''}"  %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="row">
       <% @products.each do |product| %>
         <% if product.retired == "Active" %>
@@ -27,7 +30,7 @@
                 <div class="text-secondary"><%= product.name %></div>
                 <div class="text-danger small">Available: <%= product.stock %></div>
                 <div class="d-flex justify-content-center align-items-end mt-2">
-                  <%= link_to "Add to cart", product_path(product.id), method: :get, class:"card-link btn btn-success btn-block align-self-end" %>
+                  <%= link_to "Add to cart", product_path(product.id), method: :get, class:"card-link btn btn-primary btn-block align-self-end" %>
                 </div>
               </div>
             </div>
