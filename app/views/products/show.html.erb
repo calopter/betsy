@@ -1,6 +1,6 @@
 <main>
   <section class="product-top">
-    <section>
+    <section id="product-img">
       <%= image_tag @product.photo_url, alt: @product.photo_url %>
     </section>
     <section id="right-options-info">
@@ -22,29 +22,39 @@
     </section>
   </section>
 
+<hr>
 
   <section class="reviews">
     <h4>Reviews</h4>
-    <%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
+    <section id="review-form">
+      <%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
 
-      <%= f.label :rating %>
-      <%= f.text_field :rating %>
+        <%= f.label :rating %>
+        <%= f.select :rating, [[5], [4], [3], [2], [1]] %>
 
-      <%= f.label :user_review %>
-      <%= f.text_field :user_review %>
+        <%= f.label :user_review %>
+        <%= f.text_field :user_review %>
 
-      <%= f.submit "Submt review" %> 
-    <% end %>
-
-    <% @product.reviews.each do |review| %>
-    <ul>
-      <li>
-        <%= review.rating %>
-        <%= review.created_at %>
-        <%= review.user_review %>
-      </li>
-    </ul>
-    <% end %>
+        <%= f.submit "Submt review" %> 
+      <% end %>
+    </section>
+    <section id="user-reviews">
+      <% if @product.reviews.count == 0 %>
+        <p>There are no review for this product (yet).</p>
+        <%else %>
+          <% @product.reviews.each do |review| %>
+          <ul>
+            <li>
+              <p class="stars"><%= review.rating %> Star(s)
+              <small><%= review.created_at %></small></p>
+              <p><%= review.user_review %></p>
+              <hr>
+            </li>
+          </ul>
+          <% end %>
+      <% end %>
+      
+    </section>
   </section>
   
 </main>

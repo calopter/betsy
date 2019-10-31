@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 * {
-  // border: solid blue 1px;
+  // border: solid rgb(49, 49, 87) 1px;
 }
 main {
   margin: 3rem;
@@ -13,11 +13,15 @@ img {
   width: 100%;
 }
 
+#right-options-info, #product-img {
+  margin: 2.5rem;
+}
+
+#right-options-info {
+  padding: 4rem 0;
+}
+
 .product-top {
-  // display: flex;
-  // flex-direction: row;
-  // align-items: center;
-  // justify-content: space-evenly;
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -28,4 +32,22 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+#add-to-cart {
+  margin-top: 1.5rem;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviews ul>li {
+  list-style: none;
+}
+
+.reviews ul>li .stars {
+  font-weight: 700;
 }
