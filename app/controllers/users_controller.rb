@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
   
   def dashboard
+    is_authenticated?
     user_id = session[:user_id]
     item = params[:item] || 'products'
     
