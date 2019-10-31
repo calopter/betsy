@@ -122,10 +122,11 @@ describe ProductsController do
 
   describe "review" do 
     it "saves anonymous review and redirects" do
-      new_review =  { review: { rating: 4, user_review: "Best thing ever" }}
-      # binding.pry
+      new_review = { rating: 4, user_review: "Best thing ever" }
 
-      expect { post review_product_path(products(:p_3).id), params: new_review }.must_differ "Review.count", 1
+      expect { 
+        post review_product_path(products(:p_3).id), params: new_review 
+      }.must_differ "Review.count", 1
       
       post review_product_path(products(:p_3).id), params: new_review
 
