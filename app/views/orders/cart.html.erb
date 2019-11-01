@@ -1,10 +1,12 @@
 <main>
-  <h2>Cart</h2>
+  <section>
+    <h2 id = "cart" >Cart</h2>
+      <% if @order.order_items.empty? %>
+        <h4 id = "emptiness-statement" >your cart is empty</h4>
+      <% end %>
+  </section>
 
-  <% if @order.order_items.empty? %>
-    <h4>your cart is empty</h4>
-  <% end %>
-
+<section id = orders>
   <table>
     <h2 id = "order-details"> Order Details </h2>
     <theader>
@@ -13,6 +15,7 @@
         <td>Quantity</td>
         <td>Price</td>
         <td>Item Subtotal</td>
+        <td>Remove?</td>
       </tr>
     </theader>
     <tbody>
@@ -31,8 +34,12 @@
         </tr>
       <% end %>
     </tbody>
-  </table>
+    </table>
+  </section>
 
-  <h3 class= "summary"> Total Price: $<%= Order.formatter @order.revenue %> </h3>
-  <%= link_to "Purchase", complete_purchase_path(@order.id) %>
+<section>
+  <h2 id= "sum"> Total Price: $<%= Order.formatter @order.revenue %> </h2>
+
+  <h4><strong><%= link_to "Click here to complete this purchase!", complete_purchase_path(@order.id) %></strong></h4>
+  </section>
 </main>
