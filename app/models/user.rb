@@ -51,10 +51,8 @@ class User < ApplicationRecord
     items.map(&:order).uniq.group_by(&:status).transform_values(&:count)
   end
 
-  def my_orders status=nil
-    orders = items.group_by(&:order)
-    orders.select! { |order, _| order.status == status } if status
-    return orders
+  def my_orders
+    items.group_by(&:order)
   end
   
   def self.build_from_github(auth_hash)

@@ -25,6 +25,15 @@ class Order < ApplicationRecord
     return_statement = "#{dollars}.#{cents}"
   end
   
+  
+  def order_inspection
+    order = Order.find_by(id: self.id)
+    if order.status == "paid" && order.order_items.find_by(shipping_status: "pending").nil?
+      order.status = "complete"
+      order.save
+    end
+  end
+  
   def self.price(id)
     order_items = OrderItem.where(order_id: id)
     

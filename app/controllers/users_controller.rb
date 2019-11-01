@@ -25,6 +25,10 @@ class UsersController < ApplicationController
     @orders = @user.my_orders(params[:status])
   end
   
+  def fulfillment
+    @user = find_user
+  end
+  
   def show
     is_authenticated?
     @user = User.find_by(id: params[:id])
