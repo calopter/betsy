@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
   
   def dashboard
+    is_authenticated?
     user_id = session[:user_id]
     item = params[:item] || 'products'
     
@@ -17,6 +18,11 @@ class UsersController < ApplicationController
     else 
       @categories = Category.all
     end
+  end
+
+  def fulfillment
+    @user = find_user
+    @orders = @user.my_orders(params[:status])
   end
   
   def fulfillment

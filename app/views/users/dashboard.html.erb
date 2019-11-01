@@ -22,14 +22,16 @@
     </section>
   </div>
   <%# <h2> PRODUCTS </h2> %>
-  <div class="col-lg-9">
-    <div class="container">
-      <div class="row justify-content-end mb-4">
-        <% if @products%>
-          <%= link_to "Add Product", new_product_path, class:"btn btn-primary" %>
-        <% else %>
-          <%= link_to "Add Category", new_category_path, class:"btn btn-success" %>
-        <% end %>
+  <div class="col-lg-9 card">
+    <div class="card-body">
+      <div class="container">
+        <div class="row justify-content-end mb-4">
+          <% if @products%>
+            <%= link_to "Add Product", new_product_path, class:"btn btn-primary" %>
+          <% else %>
+            <%= link_to "Add Category", new_category_path, class:"btn btn-success" %>
+          <% end %>
+        </div>
       </div>
     </div>
     <table class="table table-striped">
@@ -56,7 +58,11 @@
             <tr>
               <th scope="row"><%= product.id %></th>
               <td><%= product.name %></td>
-              <td><%= product.categories%>
+              <td>
+                <%product.categories.each do |category|%>
+                  <span class="badge badge-secondary"><%= category.label%></span>
+                <% end %>
+              </td>
               <td><%= product.stock %></td>
               <td><%= product.price %></td>
               <td><%= product.retired %></td>
@@ -68,7 +74,7 @@
             <tr>
               <th scope="row"><%= category.id %></th>
               <td><%= category.label %></td>
-              <td> <%= link_to "Edit", root_path(category.id), class:"btn btn-success " %></td>
+              <td> <%= link_to "Edit", edit_category_path(category.id), class:"btn btn-success " %></td>
             </tr>
           <% end %>
         <% end %>

@@ -38,6 +38,8 @@ tags
 # Ignore ctags
 tags
 
+coverage
+
 sarasbackup.md
 momos_backup_code.md
 

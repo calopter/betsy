@@ -121,10 +121,48 @@ describe ProductsController do
   end 
 
   describe "review" do 
-    it "saves review and redirects" do
+    it "saves anonymous review and redirects" do
+    #TEST FAILING BECAUSE THERE IS NO USER FIXTURE WITH ID = 0. CAN MAKE THIS TEST PASS BY ADDING SUCH USER BUT YML DECIDED TO BREAK THE OTHER TESTS IF WE DID THAT
+      new_review = { rating: 4, user_review: "Best thing ever" }
+      
+      expect { 
+        post review_product_path(products(:p_3).id), params: new_review 
+      }.must_differ "Review.count", 1
+      
+      post review_product_path(products(:p_3).id), params: new_review
+
+      expect(Review.last.rating).must_equal 4
+      expect(Review.last.user_review).must_equal "Best thing ever"
+      expect(Review.last.user_id).must_equal 0
+
+      must_redirect_to product_path(products(:p_3).id)
     end 
 
-    it "renders if review not saved" do 
+    it "saves merchant review and redirects" do 
+      perform_login(@user)
+
+      new_review =  { rating: 4, user_review: "Best thing ever" }
+    
+      expect { post review_product_path(products(:p_3).id), params: new_review }.must_differ "Review.count", 1
+      
+      post review_product_path(products(:p_3).id), params: new_review
+      
+      expect(Review.last.rating).must_equal 4
+      expect(Review.last.user_review).must_equal "Best thing ever"
+      
+      expect(User.find_by(id: Review.last.user_id).username).must_equal @user.username
+
+      must_redirect_to product_path(products(:p_3).id)
+    end 
+
+    it "doesn't allow merchant to review own product and redirects" do 
+      perform_login(@user)
+
+      new_review =  { rating: 4, user_review: "Best thing ever" }
+      # binding.pry
+      expect { post review_product_path(products(:p_1).id), params: new_review }.must_differ "Review.count", 0
+
+      must_redirect_to product_path(products(:p_1).id)
     end 
   end
 end
