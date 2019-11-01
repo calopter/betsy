@@ -32,7 +32,23 @@ class OrderItemsController < ApplicationController
       return head :not_found
     end
   end
-
+  
+  def mark_shipped
+    order_item = OrderItem.find_by(id: params[:id])
+    order_item.shipping_status = "shipped"
+    order_item.save
+    if order_item.save
+      order = Order.find_by(id: order_item.order_id)
+      order.order_inspection
+      flash[:result_text] = "product #{order_item.product.name} has shipped!" 
+      redirect_to fulfillment_path
+      # render :template => "users/fulfillment", :locals => {:user => @user}
+    else
+      flash[:error] = "unable to ship #{order_item.product.name}"
+      return head :not_found
+    end
+  end
+  
   private
   def order_item_params
     params.require(:order_item).permit(:quantity)
