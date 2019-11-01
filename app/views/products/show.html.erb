@@ -17,11 +17,11 @@
         
       </section>
       <section id="add-to-cart">
-        <strong>Add to cart</strong>
+        <strong>BUY IT!!!</strong>
         <%= form_with model: @order_item, url: add_to_cart_path(@product.id) do |f| %>  
           <%= f.label :quantity %>
           <%= f.text_field :quantity %>
-          <%= f.submit "Add to Cart" %>
+          <%= f.submit "Add to Cart", class:"btn btn-primary" %>
         <% end %>
       </section>
     </section>
