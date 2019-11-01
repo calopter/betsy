@@ -6,7 +6,7 @@
     <section id="right-options-info">
       <section id="product-info">
         <h3><%= @product.name %></h3>
-        <p><strong>Sold by: </strong><%= User.find_by(id: @product.user_id).username %></p>
+        <p><strong>Sold by: </strong><%= link_to User.find_by(id: @product.user_id).username, products_path(merchantId: @product.user_id) %></p>
         <p><strong>Price: </strong>$<%= @product.price / 100 %></p>
         <% if @product.stock < 100 && @product.stock > 0 %>
           <p class="text-danger small">Low in stock. Only <%= @product.stock %> left!</p>
@@ -40,8 +40,8 @@
         </section>
 
         <section class="form-group">
-          <%= f.label :user_review %>
-          <%= f.text_area :user_review, class:"form-control" %>
+          <p><%= f.label :user_review %></p>
+          <p><%= f.text_area :user_review, class:"form-control" %></p>
         </section>
         
         <section class="form-group">
@@ -59,7 +59,7 @@
           <ul>
             <li>
               <p class="stars"><%= review.rating %> Star(s)
-              <small><%= review.created_at %></small></p>
+              <small>- <%= review.created_at.strftime("%m/%d/%Y") %></small></p>
               <p><%= review.user_review %></p>
               
             </li>
