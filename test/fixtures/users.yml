@@ -1,20 +1,49 @@
-# valid:
-#   username: john
-#   email: john@example.com
+valid:
+  username: john
+  email: john@example.com
+  cc_name: test
+  cc_number: test
+  cvv: test
+  billing_zip: 12929
+  street_address: 14242
+  city: Seattle
+  state: WA
+  mailing_zip: 12929
 
-# invalid_without_username:
-#   email: john2@example.com
+invalid_without_username:
+  email: john2@example.com
+  cc_name: test
+  cc_number: test
+  cvv: test
+  billing_zip: 12929
+  street_address: 14242
+  city: Seattle
+  state: WA
+  mailing_zip: 12929
 
-# invalid_without_email:
-#   username: amy
+invalid_without_email:
+  username: amy
+  cc_name: test
+  cc_number: test
+  cvv: test
+  billing_zip: 12929
+  street_address: 14242
+  city: Seattle
+  state: WA
+  mailing_zip: 12929
 
-# invalid_duplicate_username:
-#   username: john
-#   email: test2@test.com
+invalid_duplicate_username:
+  username: amy
+  email: test123@gmail.com
+  cc_name: test2
+  cc_number: test
+  cvv: test
+  billing_zip: 12929
+  street_address: 14242
+  city: Seattle
+  state: WA
+  mailing_zip: 12929
 
-# need to changes for my test work
-
-# =============================================  
 # u_0:
 #   # id: 0
 #   username: guest

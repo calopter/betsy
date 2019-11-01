@@ -34,7 +34,7 @@ describe User do
   end
   
   
-  # still working on test.
+  # # still working on test.
   
   describe 'custom methods' do
     describe 'order_count' do
@@ -66,9 +66,8 @@ describe User do
   
   describe 'validation' do
     it 'invalid without username' do
-      skip
       
-      user = users(:username)
+      user = users(:invalid_without_username)
       user.valid?.must_equal false
       user.errors.messages.must_include :username
       # @user.username = nil
@@ -77,7 +76,7 @@ describe User do
     end
     
     it 'invalid without email' do
-      skip
+
       
       user = users(:invalid_without_email)
       user.valid?.must_equal false
@@ -89,7 +88,7 @@ describe User do
     end
     
     it "requires a unique username" do
-      skip
+      # skip
       
       username = "test username"
       email = 'test@email.com'
@@ -105,7 +104,7 @@ describe User do
     end 
     
     it 'requires an unique email' do
-      skip
+      # skip
       
       username1 = "testusername"
       email = 'test@email.com'

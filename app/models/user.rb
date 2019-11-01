@@ -2,8 +2,9 @@ class User < ApplicationRecord
   has_many :products
   has_many :orders
   has_many :reviews
-  
-  validates :email, presence: true, on: :verify_user_at_purchase
+
+  validates :username, presence: true, uniqueness: true#, on: :verify_user_at_purchase
+  validates :email, presence: true, uniqueness: true#, on: :verify_user_at_purchase
   validates :cc_name, presence: true, on: :verify_user_at_purchase
   validates :cc_number, presence: true, on: :verify_user_at_purchase
   validates :cc_expiration, presence: true, on: :verify_user_at_purchase
