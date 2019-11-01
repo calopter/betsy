@@ -1,18 +1,23 @@
 <div class="row mt-2">
   <div class="col-lg-3">
-    <section class="mb-5 card side-nav">
-      <div class="card-header">
-        Merchants
-      </div>
-      <div class="card-body">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <%= link_to "Products", dashboard_path(item: "products"), class:"nav-link active" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Categories", dashboard_path(item: "categories"), class:"nav-link " %>
-          </li>
-        </ul>
+    <section class="mb-5">
+      <div class="card">
+        <div class="card-header">
+          Merchants
+        </div>
+        <div class="card-body">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <%= link_to "Products", dashboard_path(item: "products"), class:"nav-link active" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Categories", dashboard_path(item: "categories"), class:"nav-link " %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Order Fulfillment", fulfillment_path, class:"nav-link " %>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   </div>
