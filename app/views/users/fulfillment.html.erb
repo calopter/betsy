@@ -43,7 +43,14 @@
   </section>
   <section>
     <h4>Orders</h4>
-    <% @user.my_orders.each do |order, order_items| %>
+    <span>
+      <%= link_to "all", fulfillment_path %>
+      <%= link_to "pending", fulfillment_status_path(:pending) %>
+      <%= link_to "paid", fulfillment_status_path(:paid) %>
+      <%= link_to "complete", fulfillment_status_path(:complete) %>
+      <%= link_to "cancelled", fulfillment_status_path(:cancelled) %>
+    </span>
+    <% @orders.each do |order, order_items| %>
       <%= render 'users/order', order: order, order_items: order_items %>
     <% end %>
   </section>

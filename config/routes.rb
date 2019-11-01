@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "users#dashboard", as: "dashboard"
   get 'fulfillment', to: 'users#fulfillment', as: 'fulfillment'
+  get 'fulfillment/:status', to: 'users#fulfillment', as: 'fulfillment_status'
 
   resources :orders
   resources :products do 

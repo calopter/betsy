@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def fulfillment
     @user = find_user
+    @orders = @user.my_orders(params[:status])
   end
   
   def show
