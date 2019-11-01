@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
       product.save
     end
     @cart.save
-
+    
     new_cart = Order.create(user: @cart.user, status: "pending")
     session[:order_id] = new_cart.id
   end
@@ -63,7 +63,7 @@ class OrdersController < ApplicationController
     else
       order_item = OrderItem.new(order_item_params.merge({order_id: @cart.id}).merge(product_id))
     end
-
+    
     if order_item.save
       session[:order_id] = @cart.id
       flash[:status] = :success

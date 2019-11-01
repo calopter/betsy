@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       @categories = Category.all
     end
   end
-
+  
   def fulfillment
     @user = find_user
   end
