@@ -52,7 +52,8 @@ describe ProductsController do
 
       expect { post products_path, params: product_hash }.must_differ 'Product.count', 1
     
-      must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
+      # must_redirect_to product_path(Product.find_by(name: product_hash[:product][:name]))
+      must_redirect_to dashboard_path(item: 'products')
     end
 
     # it "renders if product was not saved" do 
@@ -94,7 +95,8 @@ describe ProductsController do
       expect(updated_product.name).must_equal updated_product_data[:product][:name]
       expect(updated_product.price).must_equal updated_product_data[:product][:price]
       
-      must_redirect_to product_path(products(:p_1).id)
+      # must_redirect_to product_path(products(:p_1).id)
+      must_redirect_to dashboard_path(item: 'products')
     end 
 
     it "does not allow merchant to edit another merchant's product " do 
