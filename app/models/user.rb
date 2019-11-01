@@ -2,9 +2,10 @@ class User < ApplicationRecord
   has_many :products
   has_many :orders
   has_many :reviews
-
-  validates :username, presence: true, uniqueness: true, on: :verify_user_at_purchase
-  validates :email, presence: true, uniqueness: true, on: :verify_user_at_purchase
+  
+  # validates :username, presence: true, uniqueness: true, on: :verify_user_at_purchase
+  
+  validates :email, presence: true, on: :verify_user_at_purchase
   validates :cc_name, presence: true, on: :verify_user_at_purchase
   validates :cc_number, presence: true, on: :verify_user_at_purchase
   validates :cc_expiration, presence: true, on: :verify_user_at_purchase
@@ -25,11 +26,11 @@ class User < ApplicationRecord
       return
     end
   end
-
+  
   def address
     street_address
   end
-
+  
   def show_cc
     cc_number.to_s[-4..-1]
   end
@@ -51,7 +52,7 @@ class User < ApplicationRecord
   def orders_counts
     items.map(&:order).uniq.group_by(&:status).transform_values(&:count)
   end
-
+  
   def my_orders status=nil
     orders = items.group_by(&:order)
     orders.select! { |order, _| order.status == status } if status
@@ -66,7 +67,7 @@ class User < ApplicationRecord
     user.email = auth_hash["info"]["email"]
     return user
   end
-
+  
   private
   def items
     OrderItem.all.select {|oi| oi.product.user.id == self.id}
