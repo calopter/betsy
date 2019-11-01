@@ -1,7 +1,6 @@
 <article>
   <header>
-    <h6><%= link_to "Order #{ (order).id }", order_path((order).id) %></h6>
-    <p>status: <%= (order).status %></p>
+    <h6><strong><%= link_to "Order #{ (order).id }", order_path((order).id) %> </strong> status: <%= (order).status %></h6>
   </header>
   <table>
     <theader>
@@ -9,7 +8,7 @@
         <td>Product</td>
         <td>Quantity</td>
         <td>Subtotal</td>
-        <td></td>
+        <td>Status</td>
       </tr>
     </theader>
     <tbody>
