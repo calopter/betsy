@@ -6,17 +6,22 @@
     <section id="right-options-info">
       <section id="product-info">
         <h3><%= @product.name %></h3>
-        <p><strong>Sold by: </strong><%= User.find_by(id: @product.user_id).username %></p>
-        <p><strong>Price: </strong>$<%= @product.price %></p>
+        <p><strong>Sold by: </strong><%= link_to User.find_by(id: @product.user_id).username, products_path(merchantId: @product.user_id) %></p>
+        <p><strong>Price: </strong>$<%= @product.price / 100 %></p>
+        <% if @product.stock < 100 && @product.stock > 0 %>
+          <p class="text-danger small">Low in stock. Only <%= @product.stock %> left!</p>
+        <% elsif @product.stock == 0%>
+          <p class="text-danger small">Not available</p>
+        <% end %>
         <p><strong>Description: </strong><%= @product.description %></p>
         
       </section>
       <section id="add-to-cart">
-        <strong>Add to cart</strong>
+        <strong>BUY IT!!!</strong>
         <%= form_with model: @order_item, url: add_to_cart_path(@product.id) do |f| %>  
           <%= f.label :quantity %>
           <%= f.text_field :quantity %>
-          <%= f.submit "Add to Cart" %>
+          <%= f.submit "Add to Cart", class:"btn btn-primary" %>
         <% end %>
       </section>
     </section>
@@ -29,18 +34,18 @@
     <section id="review-form">
       <%= form_with model: @review, url: review_product_path(@product.id) do |f| %>
 
-        <section>
+        <section class="form-group">
           <%= f.label :rating %>
-          <%= f.select :rating, [[5], [4], [3], [2], [1]]%>
+          <%= f.select :rating, [[5], [4], [3], [2], [1]], class:"form-control"%>
         </section>
 
-        <section>
-          <%= f.label :user_review %>
-          <%= f.text_area :user_review %>
+        <section class="form-group">
+          <p><%= f.label :user_review %></p>
+          <p><%= f.text_area :user_review, class:"form-control" %></p>
         </section>
         
-        <section>
-          <%= f.submit "Submt review" %> 
+        <section class="form-group">
+          <%= f.submit "Submt review", class:"btn btn-primary" %> 
         </section>
         
       <% end %>
@@ -54,7 +59,7 @@
           <ul>
             <li>
               <p class="stars"><%= review.rating %> Star(s)
-              <small><%= review.created_at %></small></p>
+              <small>- <%= review.created_at.strftime("%m/%d/%Y") %></small></p>
               <p><%= review.user_review %></p>
               
             </li>

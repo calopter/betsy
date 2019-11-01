@@ -26,11 +26,11 @@
             <div class="card h-100" style="width: 18rem;">
               <img src=<%= product.photo_url %> class="card-img-top img-fluid" alt=<%= product.name %>>
               <div class="card-body">
-                <h5 class="card-title">$<%= product.price %></h5>
+                <h5 class="card-title">$<%= product.price / 100%></h5>
                 <div class="text-secondary"><%= product.name %></div>
-                <div class="text-danger small">Available: <%= product.stock %></div>
                 <div class="d-flex justify-content-center align-items-end mt-2">
-                  <%= link_to "Add to cart", product_path(product.id), method: :get, class:"card-link btn btn-primary btn-block align-self-end" %>
+                  <%= link_to "add to cart", add_to_cart_path(product_id: product.id, order_item: { quantity: 1 }), method: :post, class:"card-link btn btn-primary btn-block align-self-end" %>
+                  <%= link_to "see details", product_path(product.id), method: :get, class:"card-link btn btn-primary btn-block align-self-end" %>
                 </div>
               </div>
             </div>

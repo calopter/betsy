@@ -2,6 +2,12 @@ class OrdersController < ApplicationController
   
   before_action :find_user, only:[:complete_purchase, :purchase_confirmation]
   before_action :find_cart, only:[:complete_purchase, :purchase_confirmation, :add]
+
+  def show
+    #assert logged in
+    @order = Order.find_by(id: params[:id])
+    @user = @order&.user
+  end
   
   def complete_purchase
     if @cart.order_items.count == 0
@@ -40,12 +46,12 @@ class OrdersController < ApplicationController
       product.save
     end
     @cart.save
-
+    
     new_cart = Order.create(user: @cart.user, status: "pending")
     session[:order_id] = new_cart.id
   end
   
-  def show
+  def cart
     @order = Order.find_by(id: get_cart[:order_id])
     session[:order_id] = @order.id
   end
@@ -57,7 +63,7 @@ class OrdersController < ApplicationController
     else
       order_item = OrderItem.new(order_item_params.merge({order_id: @cart.id}).merge(product_id))
     end
-
+    
     if order_item.save
       session[:order_id] = @cart.id
       flash[:status] = :success

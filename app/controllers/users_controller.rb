@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :find_cart, only: [:edit, :update]
+  before_action :find_user, only: [:fulfillment]
+  
   def index
     @users = User.all
     @categories = Category.all
@@ -16,6 +18,15 @@ class UsersController < ApplicationController
     else 
       @categories = Category.all
     end
+  end
+
+  def fulfillment
+    @user = find_user
+    @orders = @user.my_orders(params[:status])
+  end
+  
+  def fulfillment
+    @user = find_user
   end
   
   def show

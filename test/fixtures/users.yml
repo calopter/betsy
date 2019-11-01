@@ -44,9 +44,6 @@ invalid_duplicate_username:
   state: WA
   mailing_zip: 12929
 
-#  need to changes for my test work
-
-# =============================================
 # u_0:
 #   # id: 0
 #   username: guest
