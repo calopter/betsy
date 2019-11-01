@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   patch "/inspection", to: "orders#inspection", as: "inspection"
   
   patch "/order_item/:id/mark_shipped", to: "order_items#mark_shipped", as: "mark_shipped"
+  get 'fulfillment/:status', to: 'users#fulfillment', as: 'fulfillment_status'
 
   resources :orders
   resources :products do 

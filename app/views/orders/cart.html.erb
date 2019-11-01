@@ -42,4 +42,8 @@
 
   <h4><strong><%= link_to "Click here to complete this purchase!", complete_purchase_path(@order.id) %></strong></h4>
   </section>
+  </table>
+
+  <h3 class= "summary"> Total Price: $<%= Order.formatter @order.revenue %> </h3>
+  <%= link_to "Purchase", complete_purchase_path(@order.id) %>
 </main>
