@@ -27,7 +27,6 @@ class Order < ApplicationRecord
   
   
   def order_inspection
-    binding.pry
     order = Order.find_by(id: self.id)
     if order.status == "paid" && order.order_items.find_by(shipping_status: "pending").nil?
       order.status = "complete"
